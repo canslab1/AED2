@@ -1,4 +1,4 @@
-/*-¤£¤À°Ï¼Ò¦¡-*/
+/*-ä¸åˆ†å€æ¨¡å¼-*/
 #include <iostream>
 #include <fstream>    
 #include <cstdlib>
@@ -8,48 +8,48 @@
 #include <cmath>
 #include <algorithm>
 #include <time.h>
-/*-»O¥_¥«Ãä¬É³»ÂI®y¼Ğ-*/
-#define x1  295265.781						 /*-¥ª¤W¨¤x®y¼Ğ-*/ 
-#define x2  316372.875						 /*-¥k¤U¨¤x®y¼Ğ-*/ 
-#define y1 2761738.500						 /*-¥ª¤W¨¤y®y¼Ğ-*/ 
-#define y2 2789378.999						 /*-¥k¤U¨¤y®y¼Ğ-*/ 
-/*-°Ñ¼Æ³]©w-*/
-#define grid              45                 /*-ºô®æÃäªø-*/
-#define store            677                 /*-»O¥_¥««K§Q°Ó©±¼Æ¶q-*/
-#define fire              44                 /*-»O¥_¥«®ø¨¾§½¼Æ¶q-*/
-#define patient         1625                 /*-»O¥_¥«2010¦~OHCA¯f¨Ò¼Æ-*/
-#define s_distance       300                 /*-®ø¨¾§½«æ±Ï¥i¹F¶ZÂ÷-*/
-#define limit            100                 /*-±ı°t¸mªºAED¼Æ¶q-*/  
-#define simulation         1                 /*-¼ÒÀÀ¦¸¼Æ-*/ 
-#define generation     10000                 /*-¥@¥N¦¸¼Æ-*/ 
-#define population       400                 /*-¬V¦âÅé¼Æ¥Ø¡A¥²¶·¬O4ªº­¿¼Æ-*/         
-#define rate_selection     0.5               /*-¿ï¾Ü²v-*/ 
-#define rate_crossover     0.8               /*-¥æ°t²v-*/
-/*-±`¥Î¥¨¶°-*/ 
+/*-è‡ºåŒ—å¸‚é‚Šç•Œé ‚é»åº§æ¨™-*/
+#define x1  295265.781						 /*-å·¦ä¸Šè§’xåº§æ¨™-*/ 
+#define x2  316372.875						 /*-å³ä¸‹è§’xåº§æ¨™-*/ 
+#define y1 2761738.500						 /*-å·¦ä¸Šè§’yåº§æ¨™-*/ 
+#define y2 2789378.999						 /*-å³ä¸‹è§’yåº§æ¨™-*/ 
+/*-åƒæ•¸è¨­å®š-*/
+#define grid              45                 /*-ç¶²æ ¼é‚Šé•·-*/
+#define store            677                 /*-è‡ºåŒ—å¸‚ä¾¿åˆ©å•†åº—æ•¸é‡-*/
+#define fire              44                 /*-è‡ºåŒ—å¸‚æ¶ˆé˜²å±€æ•¸é‡-*/
+#define patient         1625                 /*-è‡ºåŒ—å¸‚2010å¹´OHCAç—…ä¾‹æ•¸-*/
+#define s_distance       300                 /*-æ¶ˆé˜²å±€æ€¥æ•‘å¯é”è·é›¢-*/
+#define limit            100                 /*-æ¬²é…ç½®çš„AEDæ•¸é‡-*/  
+#define simulation         1                 /*-æ¨¡æ“¬æ¬¡æ•¸-*/ 
+#define generation     10000                 /*-ä¸–ä»£æ¬¡æ•¸-*/ 
+#define population       400                 /*-æŸ“è‰²é«”æ•¸ç›®ï¼Œå¿…é ˆæ˜¯4çš„å€æ•¸-*/         
+#define rate_selection     0.5               /*-é¸æ“‡ç‡-*/ 
+#define rate_crossover     0.8               /*-äº¤é…ç‡-*/
+/*-å¸¸ç”¨å·¨é›†-*/ 
 #define FLIP(a)            (((rand() % 1000) / 1000.0) <= (a))
-#define RANDOM(x)		   (rand() % (x))
+#define RANDOM(x)	   	   (rand() % (x))
 #define Len_x              ((x2) - (x1))
-#define Len_y			   ((y2) - (y1))
+#define Len_y		   	   ((y2) - (y1))
 #define grid_x             (int(Len_x / grid) + 1)
 #define grid_y             (int(Len_y / grid) + 1)
 
 using namespace std;
-/*-¥ş°ìÅÜ¼Æ-*/
-double p_data[patient][2];                   /*-»O¥_¥«2010¦~OHCA®y¼Ğ¸ê®Æ, p_data[OHCA½s¸¹][0]:x¶b®y¼Ğ, p_data[OHCA½s¸¹][1]:y¶b®y¼Ğ-*/ 
-double f_data[fire][2];                      /*-»O¥_¥«®ø¨¾§½®y¼Ğ¸ê®Æ, f_data[®ø¨¾§½½s¸¹][0]:x¶b®y¼Ğ, f_data[®ø¨¾§½½s¸¹][1]:y¶b®y¼Ğ-*/   
-double s_data[store][2];                     /*-»O¥_¥«7-ELEVEN®y¼Ğ¸ê®Æ, s_data[°Ó©±½s¸¹][0]:x¶b®y¼Ğ, s_data[°Ó©±½s¸¹][1]:y¶b®y¼Ğ-*/      
+/*-å…¨åŸŸè®Šæ•¸-*/
+double p_data[patient][2];                   /*-è‡ºåŒ—å¸‚2010å¹´OHCAåº§æ¨™è³‡æ–™, p_data[OHCAç·¨è™Ÿ][0]:xè»¸åº§æ¨™, p_data[OHCAç·¨è™Ÿ][1]:yè»¸åº§æ¨™-*/ 
+double f_data[fire][2];                      /*-è‡ºåŒ—å¸‚æ¶ˆé˜²å±€åº§æ¨™è³‡æ–™, f_data[æ¶ˆé˜²å±€ç·¨è™Ÿ][0]:xè»¸åº§æ¨™, f_data[æ¶ˆé˜²å±€ç·¨è™Ÿ][1]:yè»¸åº§æ¨™-*/   
+double s_data[store][2];                     /*-è‡ºåŒ—å¸‚7-ELEVENåº§æ¨™è³‡æ–™, s_data[å•†åº—ç·¨è™Ÿ][0]:xè»¸åº§æ¨™, s_data[å•†åº—ç·¨è™Ÿ][1]:yè»¸åº§æ¨™-*/      
 
-short int store_gridNum[store][2];           /*-¨C¶¡7-ELEVENºô®æ½s¸¹¦ì¸m, store_gridNum[°Ó©±½s¸¹][0]:Xºô®æ½s¸¹, store_gridNum[°Ó©±½s¸¹][1]:Y°Ó©±½s¸¹-*/
-short int patient_gridNum[patient][2];       /*-¨C­ÓOHCAªººô®æ½s¸¹¦ì¸m, patient_gridNum[OHCA½s¸¹][0]:Xºô®æ½s¸¹, patient_gridNum[OHCA½s¸¹][1]:Yºô®æ½s¸¹-*/ 
-short int coverNum[store];                   /*-¨C¶¡7-ELEVEN²[»\ªºOHCA¼Æ¶q-*/
+short int store_gridNum[store][2];           /*-æ¯é–“7-ELEVENç¶²æ ¼ç·¨è™Ÿä½ç½®, store_gridNum[å•†åº—ç·¨è™Ÿ][0]:Xç¶²æ ¼ç·¨è™Ÿ, store_gridNum[å•†åº—ç·¨è™Ÿ][1]:Yå•†åº—ç·¨è™Ÿ-*/
+short int patient_gridNum[patient][2];       /*-æ¯å€‹OHCAçš„ç¶²æ ¼ç·¨è™Ÿä½ç½®, patient_gridNum[OHCAç·¨è™Ÿ][0]:Xç¶²æ ¼ç·¨è™Ÿ, patient_gridNum[OHCAç·¨è™Ÿ][1]:Yç¶²æ ¼ç·¨è™Ÿ-*/ 
+short int coverNum[store];                   /*-æ¯é–“7-ELEVENæ¶µè“‹çš„OHCAæ•¸é‡-*/
 
-/*-Åª¤JOHCA¡B«K§Q°Ó©±¤Î®ø¨¾§½ªº®y¼Ğ¸ê®Æ-*/
+/*-è®€å…¥OHCAã€ä¾¿åˆ©å•†åº—åŠæ¶ˆé˜²å±€çš„åº§æ¨™è³‡æ–™-*/
 bool read_locationData (const char *xfname, const char *yfname, double data[][2], int size, const char *msg)
 {       
     ifstream finx(xfname), finy(yfname);
     
     if (!finx || !finy) {
-    	cout << "µLªkÅª¤J" << msg << "ªº®y¼Ğ¸ê®Æ\n";
+    	cout << "ç„¡æ³•è®€å…¥" << msg << "çš„åº§æ¨™è³‡æ–™\n";
     	return false;
     }
     for (int i = 0; i < size; i++) {
@@ -61,11 +61,11 @@ bool read_locationData (const char *xfname, const char *yfname, double data[][2]
     
     return true;
 }
-/*-Âà´«¸ê®Æ¨Ã¼g¤J¤¤¶¡µ²ªGÀÉ-*/
+/*-è½‰æ›è³‡æ–™ä¸¦å¯«å…¥ä¸­é–“çµæœæª”-*/
 void data_transfor (const char *t1fname, const char *t2fname, const char *t3fname, const char *t4fname, 
                     const char *t5fname, const char *t6fname, const char *t7fname, const char *t8fname)
 {
-	/*-§R°£®ø¨¾§½©P³òªºOHCA¸ê®Æ-*/
+	/*-åˆªé™¤æ¶ˆé˜²å±€å‘¨åœçš„OHCAè³‡æ–™-*/
 	for (int i = 0; i < patient; i++)
         for (int j = 0; j < fire; j++)
             if (s_distance > sqrt(abs((p_data[i][0] - f_data[j][0]) * (p_data[i][0] - f_data[j][0]) +
@@ -73,126 +73,126 @@ void data_transfor (const char *t1fname, const char *t2fname, const char *t3fnam
                 p_data[i][0] = p_data[i][1] = 0;
                 break;
             }
-    /*-­pºâ¨C­Óºô®æªºOHCA¼Æ¶q-*/      
+    /*-è¨ˆç®—æ¯å€‹ç¶²æ ¼çš„OHCAæ•¸é‡-*/      
     short int grid_patientNum[grid_x][grid_y];
     for (int i = 0; i < grid_x; i++)
         for (int j = 0; j < grid_y; j++)
             grid_patientNum[i][j] = 0;
-    /*-­pºâ¨C­ÓOHCA¯f¨Ò©Ò¦bªººô®æ®y¼Ğ (x, y)-*/
+    /*-è¨ˆç®—æ¯å€‹OHCAç—…ä¾‹æ‰€åœ¨çš„ç¶²æ ¼åº§æ¨™ (x, y)-*/
     for (int x_data = 0, y_data = 0, i = 0; i < patient; i++, x_data = y_data = 0) {
         if (p_data[i][0] != 0 && p_data[i][1] != 0) { 
             x_data = (int)((p_data[i][0] - x1) / grid);
             y_data = (int)((p_data[i][1] - y1) / grid);
-            grid_patientNum[x_data][y_data]++;          //­pºâ¨C­Óºô®æ¦ì¸mªºOHCA¯f¨Ò¼Æ¥Ø 
+            grid_patientNum[x_data][y_data]++;          //è¨ˆç®—æ¯å€‹ç¶²æ ¼ä½ç½®çš„OHCAç—…ä¾‹æ•¸ç›® 
         }
-        patient_gridNum[i][0] = x_data;                 //¦s¤J¨C­ÓOHCA¯f¨Òªºx¶bºô®æ®y¼Ğ
-        patient_gridNum[i][1] = y_data;                 //¦s¤J¨C­ÓOHCA¯f¨ÒªºY¶bºô®æ®y¼Ğ
+        patient_gridNum[i][0] = x_data;                 //å­˜å…¥æ¯å€‹OHCAç—…ä¾‹çš„xè»¸ç¶²æ ¼åº§æ¨™
+        patient_gridNum[i][1] = y_data;                 //å­˜å…¥æ¯å€‹OHCAç—…ä¾‹çš„Yè»¸ç¶²æ ¼åº§æ¨™
     } 
-    /*-­pºâ¨C¶¡«K§Q°Ó©±©Ò¦bªººô®æ®y¼Ğ (x, y)-*/ 
+    /*-è¨ˆç®—æ¯é–“ä¾¿åˆ©å•†åº—æ‰€åœ¨çš„ç¶²æ ¼åº§æ¨™ (x, y)-*/ 
     for (int x_data = 0, y_data = 0, i = 0; i < store; i++, x_data = y_data = 0) {
         if (s_data[i][0] != 0 && s_data[i][1] != 0) {
             x_data = (int)((s_data[i][0] - x1) / grid);
             y_data = (int)((s_data[i][1] - y1) / grid);
         }
-        store_gridNum[i][0] = x_data;                   //¦s¤J¨C¶¡«K§Q°Ó©±ªºx¶bºô®æ®y¼Ğ
-        store_gridNum[i][1] = y_data;                   //¦s¤J¨C¶¡«K§Q°Ó©±ªºy¶bºô®æ®y¼Ğ
+        store_gridNum[i][0] = x_data;                   //å­˜å…¥æ¯é–“ä¾¿åˆ©å•†åº—çš„xè»¸ç¶²æ ¼åº§æ¨™
+        store_gridNum[i][1] = y_data;                   //å­˜å…¥æ¯é–“ä¾¿åˆ©å•†åº—çš„yè»¸ç¶²æ ¼åº§æ¨™
     }    
-    /*-¼gÀÉ-*/ 
+    /*-å¯«æª”-*/ 
     FILE *fptr;
-    fptr = fopen(t1fname, "w"); /*-ÀÉ®×1:¼g¤J¥¼³Q§R°£OHCAºô®æ½s¸¹¸ê®Æ,ÀÉ®×¦WºÙ:"save_patient.txt"-*/
+    fptr = fopen(t1fname, "w"); /*-æª”æ¡ˆ1:å¯«å…¥æœªè¢«åˆªé™¤OHCAç¶²æ ¼ç·¨è™Ÿè³‡æ–™,æª”æ¡ˆåç¨±:"save_patient.txt"-*/
     for (int i = 0; i < patient; i++)
         fprintf(fptr, "%d\t%d\n", patient_gridNum[i][0], patient_gridNum[i][1]);
     fclose(fptr);
 	           
-    fptr = fopen(t2fname, "w"); /*-ÀÉ®×2:¼g¤J¨C­Ó³]¬I¹ïÀ³ªºXºô®æ½s¸¹¡AÀÉ®×¦WºÙ:"store_gridNumx.txt"-*/
+    fptr = fopen(t2fname, "w"); /*-æª”æ¡ˆ2:å¯«å…¥æ¯å€‹è¨­æ–½å°æ‡‰çš„Xç¶²æ ¼ç·¨è™Ÿï¼Œæª”æ¡ˆåç¨±:"store_gridNumx.txt"-*/
     for (int i = 0; i < store; i++)
         fprintf(fptr, "%d\n", (int)store_gridNum[i][0]);    
     fclose(fptr);           
     
-    fptr = fopen(t3fname, "w"); /*-ÀÉ®×3:¼g¤J¨C­Ó³]¬I¹ïÀ³ªºYºô®æ½s¸¹¡AÀÉ®×¦WºÙ:"store_gridNumy.txt"-*/
+    fptr = fopen(t3fname, "w"); /*-æª”æ¡ˆ3:å¯«å…¥æ¯å€‹è¨­æ–½å°æ‡‰çš„Yç¶²æ ¼ç·¨è™Ÿï¼Œæª”æ¡ˆåç¨±:"store_gridNumy.txt"-*/
     for (int i = 0; i < store; i++)
         fprintf(fptr, "%d\n", (int)store_gridNum[i][1]);    
     fclose(fptr);
     
-    fptr = fopen(t4fname, "w"); /*-ÀÉ®×4:¼g¤J¨C­Óºô®æcoverªºOHCA¼Æ¶q¡AÀÉ®×¦WºÙ:"grid_patientNum.txt"-*/
+    fptr = fopen(t4fname, "w"); /*-æª”æ¡ˆ4:å¯«å…¥æ¯å€‹ç¶²æ ¼coverçš„OHCAæ•¸é‡ï¼Œæª”æ¡ˆåç¨±:"grid_patientNum.txt"-*/
     for (int i = 0; i < grid_x; i++)
         for (int j = 0; j < grid_y; j++, fprintf(fptr, "\n"))
             fprintf(fptr, "%d\t", (int)grid_patientNum[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t5fname, "w"); /*-ÀÉ®×5:¼g¤J¨C­ÓOHCA©Ò¦bªººô®æ½s¸¹¡AÀÉ®×¦WºÙ:"patient_gridNumx.txt"-*/
+    fptr = fopen(t5fname, "w"); /*-æª”æ¡ˆ5:å¯«å…¥æ¯å€‹OHCAæ‰€åœ¨çš„ç¶²æ ¼ç·¨è™Ÿï¼Œæª”æ¡ˆåç¨±:"patient_gridNumx.txt"-*/
     for (int i = 0; i < patient; i++)
         fprintf(fptr, "%d\n", (int)patient_gridNum[i][0]);
     fclose(fptr);
     
-    fptr = fopen(t6fname, "w"); /*-ÀÉ®×6:¼g¤J¨C­ÓOHCA©Ò¦bªººô®æ½s¸¹¡AÀÉ®×¦WºÙ:"patient_gridNumy.txt"-*/
+    fptr = fopen(t6fname, "w"); /*-æª”æ¡ˆ6:å¯«å…¥æ¯å€‹OHCAæ‰€åœ¨çš„ç¶²æ ¼ç·¨è™Ÿï¼Œæª”æ¡ˆåç¨±:"patient_gridNumy.txt"-*/
     for (int i = 0; i < patient; i++)
         fprintf(fptr, "%d\n", (int)patient_gridNum[i][1]);
     fclose(fptr);
     
-    fptr = fopen(t7fname, "w"); /*-ÀÉ®×7:¼g¤J¥¼³Q§R°£OHCA®y¼Ğ¸ê®Æ,ÀÉ®×¦WºÙ:"patient_saveDatax.txt"-*/
+    fptr = fopen(t7fname, "w"); /*-æª”æ¡ˆ7:å¯«å…¥æœªè¢«åˆªé™¤OHCAåº§æ¨™è³‡æ–™,æª”æ¡ˆåç¨±:"patient_saveDatax.txt"-*/
     for (int i = 0; i < patient; i++)
         fprintf(fptr, "%f\n", p_data[i][0]);
     fclose(fptr);
 	  
-    fptr = fopen(t8fname, "w"); /*-ÀÉ®×8:¼g¤J¥¼³Q§R°£OHCA®y¼Ğ¸ê®Æ,ÀÉ®×¦WºÙ:"patient_saveDatay.txt"-*/
+    fptr = fopen(t8fname, "w"); /*-æª”æ¡ˆ8:å¯«å…¥æœªè¢«åˆªé™¤OHCAåº§æ¨™è³‡æ–™,æª”æ¡ˆåç¨±:"patient_saveDatay.txt"-*/
     for (int i = 0; i < patient; i++)
         fprintf(fptr, "%f\n", p_data[i][1]);
     fclose(fptr);    
 }
-/*-°ò¦]ºtºâªkÃş§O-*/ 
+/*-åŸºå› æ¼”ç®—æ³•é¡åˆ¥-*/ 
 class geneticAlgorithm
 {
     private:
-        short int patient_saveNum;                         /*-¹LÂo®ø¨¾§½©P³ò«áªº¯f¤HÁ`¼Æ-*/              
+        short int patient_saveNum;                         /*-éæ¿¾æ¶ˆé˜²å±€å‘¨åœå¾Œçš„ç—…äººç¸½æ•¸-*/              
         
-        double phenotype[population];                      /*-¨C±ø¦âÅé¤ºªº³]¬I¤§OHCA´_µd´Á±æ­È-*/   
-        double fitness[population];                        /*-¨C±ø¬V¦âÅéªº¾AÀ³­È-*/
-        short int OHCANum[population];                     /*-¨C±ø¬V¦âÅé²[»\ªºOHCA¼Æ¥Ø-*/
-        short int cover_gridNum[population];               /*-¨C±ø¬V¦âÅéÂĞ»\ªººô®æ¼Æ¥Ø-*/
-        short int individual[population][limit + 3];       /*-ªì©l±Ú¸s(¬V¦âÅé¼Æ)X(¬V¦âÅéªø«×)-*/
-        short int store_coverNum[population][limit];       /*-¨C±ø¬V¦âÅé¤ºªº³]¬I²[»\ªºOHCA¼Æ-*/
-        double store_coverWeight[population][limit];       /*-¨C±ø¬V¦âÅé¤ºªº³]¬I²[»\ªºOHCA´_µdÅv­«­È-*/
+        double phenotype[population];                      /*-æ¯æ¢è‰²é«”å…§çš„è¨­æ–½ä¹‹OHCAå¾©ç”¦æœŸæœ›å€¼-*/   
+        double fitness[population];                        /*-æ¯æ¢æŸ“è‰²é«”çš„é©æ‡‰å€¼-*/
+        short int OHCANum[population];                     /*-æ¯æ¢æŸ“è‰²é«”æ¶µè“‹çš„OHCAæ•¸ç›®-*/
+        short int cover_gridNum[population];               /*-æ¯æ¢æŸ“è‰²é«”è¦†è“‹çš„ç¶²æ ¼æ•¸ç›®-*/
+        short int individual[population][limit + 3];       /*-åˆå§‹æ—ç¾¤(æŸ“è‰²é«”æ•¸)X(æŸ“è‰²é«”é•·åº¦)-*/
+        short int store_coverNum[population][limit];       /*-æ¯æ¢æŸ“è‰²é«”å…§çš„è¨­æ–½æ¶µè“‹çš„OHCAæ•¸-*/
+        double store_coverWeight[population][limit];       /*-æ¯æ¢æŸ“è‰²é«”å…§çš„è¨­æ–½æ¶µè“‹çš„OHCAå¾©ç”¦æ¬Šé‡å€¼-*/
 
-        short int store_coverNum_best[simulation][limit];  /*-³Ì¨Î¬V¦âÅé³]¬I­Ó§O¤§OHCA¼Æ-*/
-        double store_coverWeight_best[simulation][limit];  /*-³Ì¨Î¬V¦âÅé³]¬I­Ó§O¤§´_µd´Á±æ­È-*/
+        short int store_coverNum_best[simulation][limit];  /*-æœ€ä½³æŸ“è‰²é«”è¨­æ–½å€‹åˆ¥ä¹‹OHCAæ•¸-*/
+        double store_coverWeight_best[simulation][limit];  /*-æœ€ä½³æŸ“è‰²é«”è¨­æ–½å€‹åˆ¥ä¹‹å¾©ç”¦æœŸæœ›å€¼-*/
         
-        double fitness_avg[simulation][generation];        /*-¨C­Ó¥@¥N¥­§¡ªº¬V¦âÅé¾AÀ³­È-*/
-        double fitness_best[simulation][generation];       /*-¨C­Ó¥@¥N³Ì¦nªº¬V¦âÅé¾AÀ³­È-*/
-        double phenotype_best[simulation][generation];     /*-¨C­Ó¥@¥N³Ì¦nªº¬V¦âÅéªí²{«¬-*/
-        short int OHCANum_best[simulation][generation];    /*-¨C­Ó¥@¥N³Ì¦nªº¬V¦âÅécoverªºOHCA¼Æ-*/
-        short int coverGrid[simulation][generation];       /*-¨C­Ó¥@¥N³Ì¨Îªº¬V¦âÅécoverªººô®æ¼Æ-*/
+        double fitness_avg[simulation][generation];        /*-æ¯å€‹ä¸–ä»£å¹³å‡çš„æŸ“è‰²é«”é©æ‡‰å€¼-*/
+        double fitness_best[simulation][generation];       /*-æ¯å€‹ä¸–ä»£æœ€å¥½çš„æŸ“è‰²é«”é©æ‡‰å€¼-*/
+        double phenotype_best[simulation][generation];     /*-æ¯å€‹ä¸–ä»£æœ€å¥½çš„æŸ“è‰²é«”è¡¨ç¾å‹-*/
+        short int OHCANum_best[simulation][generation];    /*-æ¯å€‹ä¸–ä»£æœ€å¥½çš„æŸ“è‰²é«”coverçš„OHCAæ•¸-*/
+        short int coverGrid[simulation][generation];       /*-æ¯å€‹ä¸–ä»£æœ€ä½³çš„æŸ“è‰²é«”coverçš„ç¶²æ ¼æ•¸-*/
         
-        short int individual_best[simulation][limit + 3];  /*-³Ì¦nªº¬V¦âÅé-*/
-        double select_patientSet[simulation][patient][2];  /*-¬D¿ï¤¤ªº¯f¤H½s¸¹-*/
+        short int individual_best[simulation][limit + 3];  /*-æœ€å¥½çš„æŸ“è‰²é«”-*/
+        double select_patientSet[simulation][patient][2];  /*-æŒ‘é¸ä¸­çš„ç—…äººç·¨è™Ÿ-*/
         
-        int store_gridNum[store][2];                       /*-¨C¶¡7-ELEVENªºx_ºô®æ©MY_ºô®æ-*/
-        int patient_gridNum[patient][2];                   /*-¨C­ÓOHCAªºx_ºô®æ©MY_ºô®æ-*/
+        int store_gridNum[store][2];                       /*-æ¯é–“7-ELEVENçš„x_ç¶²æ ¼å’ŒY_ç¶²æ ¼-*/
+        int patient_gridNum[patient][2];                   /*-æ¯å€‹OHCAçš„x_ç¶²æ ¼å’ŒY_ç¶²æ ¼-*/
 
-        double rate_mutation;                              /*-¬ğÅÜ²v-*/
+        double rate_mutation;                              /*-çªè®Šç‡-*/
         
     public:
-    	/*-°ò¦]ºtºâªkÃş§O¤§¦¨­û¨ç¼Æ«Å§i-*/ 
-        double retrieve_phenotype (int k);                 /*-¨ú±oªí²{«¬(phenotype)-*/
-        bool initialization (void);                        /*-ªì©l¤Æ-*/
-        void evaluation (int x, int& y);                   /*-µû¦ô-*/
-        void selection (void);                             /*-¿ï¾Ü-*/
-        void crossover (int x[], int y[]);                 /*-³æÂI¥æ°t-*/
-        void mutation (int x[]);                           /*-¬ğÅÜ-*/
-        void reproduction (void);                          /*-­«»s-*/    
-        void genetic_operation (int x);                    /*-°ò¦]¾Ş§@-*/           
-                                                           /*-¼gÀÉ-*/
+    	/*-åŸºå› æ¼”ç®—æ³•é¡åˆ¥ä¹‹æˆå“¡å‡½æ•¸å®£å‘Š-*/ 
+        double retrieve_phenotype (int k);                 /*-å–å¾—è¡¨ç¾å‹(phenotype)-*/
+        bool initialization (void);                        /*-åˆå§‹åŒ–-*/
+        void evaluation (int x, int& y);                   /*-è©•ä¼°-*/
+        void selection (void);                             /*-é¸æ“‡-*/
+        void crossover (int x[], int y[]);                 /*-å–®é»äº¤é…-*/
+        void mutation (int x[]);                           /*-çªè®Š-*/
+        void reproduction (void);                          /*-é‡è£½-*/    
+        void genetic_operation (int x);                    /*-åŸºå› æ“ä½œ-*/           
+                                                           /*-å¯«æª”-*/
         int writeFile (const char *t1fname, const char *t2fname, const char *t3fname, const char *t4fname, const char *t5fname, 
 		               const char *t6fname, const char *t7fname, const char *t8fname, const char *t9fname, const char *t10fname);
 };
-/*-ªì©l¤Æ¨ç¦¡-*/  
+/*-åˆå§‹åŒ–å‡½å¼-*/  
 bool geneticAlgorithm::initialization (void)
 {
     srand(time(NULL));   
-    /*-Åª¤J¨C­ÓOHCA©Ò¦bªºxºô®æ©Myºô®æ½s¸¹¡AÀÉ®×¦WºÙ:1.patient_gridNumx.txt 2.patient_gridNumy.txt-*/ 
+    /*-è®€å…¥æ¯å€‹OHCAæ‰€åœ¨çš„xç¶²æ ¼å’Œyç¶²æ ¼ç·¨è™Ÿï¼Œæª”æ¡ˆåç¨±:1.patient_gridNumx.txt 2.patient_gridNumy.txt-*/ 
 	ifstream fin1("patient_gridNumx.txt"), fin2("patient_gridNumy.txt");	 
     if (!fin1 || !fin2) {
-        cout << "µLªkÅª¤JÀÉ®×\n"; 
+        cout << "ç„¡æ³•è®€å…¥æª”æ¡ˆ\n"; 
         return false;
 	}
     for (int i = 0; i < patient; i++) {
@@ -201,19 +201,19 @@ bool geneticAlgorithm::initialization (void)
     }
     fin1.close();
     fin2.close();
-    /*-­pºâ¥¼³Q®ø¨¾§½coverªºOHCA¼Æ-*/
+    /*-è¨ˆç®—æœªè¢«æ¶ˆé˜²å±€coverçš„OHCAæ•¸-*/
     for (int i = 0; i < patient; i++)
         if (patient_gridNum[i][0] != 0 && patient_gridNum[i][1] != 0)
         	patient_saveNum++;
-    /*-¦L¥X-*/
-    cout << "¢æ¶bºô®æ¼Æ : " << setw(4) << grid_x                    << endl;
-    cout << "¢ç¶bºô®æ¼Æ : " << setw(4) << grid_y                    << endl;     
-    cout << "§R°£¯f¨Ò¼Æ : " << setw(4) << patient - patient_saveNum << endl;
-    cout << "«O¯d¯f¨Ò¼Æ : " << setw(4) << patient_saveNum           << endl;
+    /*-å°å‡º-*/
+    cout << "ï¼¸è»¸ç¶²æ ¼æ•¸ : " << setw(4) << grid_x                    << endl;
+    cout << "ï¼¹è»¸ç¶²æ ¼æ•¸ : " << setw(4) << grid_y                    << endl;     
+    cout << "åˆªé™¤ç—…ä¾‹æ•¸ : " << setw(4) << patient - patient_saveNum << endl;
+    cout << "ä¿ç•™ç—…ä¾‹æ•¸ : " << setw(4) << patient_saveNum           << endl;
 
     for (int j = 0; j < store; j++)
         coverNum[j] = 0;            
-    /*-²£¥Íªì¥N±Ú¸s¡AÀH¾÷²£¥Í7-ELEVEN½s¸¹¡Aªì©l¤Æ¨C±ø¬V¦âÅé¬ÛÃö°}¦C-*/
+    /*-ç”¢ç”Ÿåˆä»£æ—ç¾¤ï¼Œéš¨æ©Ÿç”¢ç”Ÿ7-ELEVENç·¨è™Ÿï¼Œåˆå§‹åŒ–æ¯æ¢æŸ“è‰²é«”ç›¸é—œé™£åˆ—-*/
     for (int i = 0; i < population; i++) {
         phenotype[i] = fitness[i]       = 0;
         OHCANum[i]   = cover_gridNum[i] = 0;        
@@ -228,17 +228,17 @@ bool geneticAlgorithm::initialization (void)
                 }   
             individual[i][j] = r;
         }
-        /*-ªì©l¤Æ¬V¦âÅé«á¤T½X¡Aºô®æ¼h¼Æ-*/ 
+        /*-åˆå§‹åŒ–æŸ“è‰²é«”å¾Œä¸‰ç¢¼ï¼Œç¶²æ ¼å±¤æ•¸-*/ 
         for (int j = limit; j < limit + 3; j++)
             individual[i][j] = RANDOM(2);
-        /*-¨ú±o¬V¦âÅé¤ºªº³]¬I¤§OHCA´_µd´Á±æ­È¡B³]¬I²[»\ªºOHCA¼Æ¡B³]¬IÂĞ»\ªººô®æ¼Æ-*/
+        /*-å–å¾—æŸ“è‰²é«”å…§çš„è¨­æ–½ä¹‹OHCAå¾©ç”¦æœŸæœ›å€¼ã€è¨­æ–½æ¶µè“‹çš„OHCAæ•¸ã€è¨­æ–½è¦†è“‹çš„ç¶²æ ¼æ•¸-*/
         retrieve_phenotype(i);
-        cout << "²Ä " << setw(5) << i + 1 << " ±ø¬V¦âÅéªº´_µdÅv­«­ÈÁ`©M: " << setw(8) << phenotype[i] << " ºô®æ¼Æ: " << setw(6) << cover_gridNum[i] << " ¯f¤H¼Æ: " << setw(4) << OHCANum[i] << endl;
+        cout << "ç¬¬ " << setw(5) << i + 1 << " æ¢æŸ“è‰²é«”çš„å¾©ç”¦æ¬Šé‡å€¼ç¸½å’Œ: " << setw(8) << phenotype[i] << " ç¶²æ ¼æ•¸: " << setw(6) << cover_gridNum[i] << " ç—…äººæ•¸: " << setw(4) << OHCANum[i] << endl;
     }
     system("pause");
     return true;
 }
-/*-Åª¤J¤§«eªí²{³Ì¨Îªº¬V¦âÅé¸ê®Æ-*/
+/*-è®€å…¥ä¹‹å‰è¡¨ç¾æœ€ä½³çš„æŸ“è‰²é«”è³‡æ–™-*/
 /* 
 void read_VIP_chromosomes (void)
 {
@@ -252,7 +252,7 @@ void read_VIP_chromosomes (void)
 	}
 }
 */
-/*-¨ú±o¬V¦âÅéªí²{«¬-*/       
+/*-å–å¾—æŸ“è‰²é«”è¡¨ç¾å‹-*/       
 double geneticAlgorithm::retrieve_phenotype (int k)
 {    
     static short int backup_grid_OHCANum[grid_x][grid_y];
@@ -262,20 +262,20 @@ double geneticAlgorithm::retrieve_phenotype (int k)
     short int grid_OHCANum[grid_x][grid_y], grid_Count[grid_x][grid_y];
     
     if (!loaded) {
-    	/*-Åª¤J¨C­Óºô®æ²[»\ªºOHCA¼Æ¥ØÀÉ®×©ñ¤Jgrid_OHCANum¡AÀÉ®×¦WºÙ:grid_patientNum.txt-*/
+    	/*-è®€å…¥æ¯å€‹ç¶²æ ¼æ¶µè“‹çš„OHCAæ•¸ç›®æª”æ¡ˆæ”¾å…¥grid_OHCANumï¼Œæª”æ¡ˆåç¨±:grid_patientNum.txt-*/
     	ifstream fin("grid_patientNum.txt");
     	if (!fin) {
-        	cout << "µLªkÅª¤JÀÉ®×" << endl; 
+        	cout << "ç„¡æ³•è®€å…¥æª”æ¡ˆ" << endl; 
         	return 0;
     	} 
     	for (int i = 0; i < grid_x; i++)
         	for(int j = 0; j < grid_y; j++)
             	fin >> backup_grid_OHCANum[i][j];
     	fin.close();
-    	/*-Åª¤J¨C­Ó³]¬IªºXºô®æ©MYºô®æ½s¸¹-*/   	
+    	/*-è®€å…¥æ¯å€‹è¨­æ–½çš„Xç¶²æ ¼å’ŒYç¶²æ ¼ç·¨è™Ÿ-*/   	
     	ifstream finx("store_gridNumx.txt"), finy("store_gridNumy.txt"); 
     	if (!finx || !finy)
-        	cout << "µLªkÅª¤JÀÉ®×\n"; 
+        	cout << "ç„¡æ³•è®€å…¥æª”æ¡ˆ\n"; 
     	for (int i = 0; i < store; i++) {
         	finx >> store_gridNum[i][0];
         	finy >> store_gridNum[i][1];
@@ -285,62 +285,62 @@ double geneticAlgorithm::retrieve_phenotype (int k)
     	
     	loaded = true;
 	}
-    /*-½Æ»sbackup_grid_OHCANum¨ìgrid_OHCANum»Pgrid_Count¡A­pºâ³]¬IªA°È½d³ò­«Å|ªººô®æ¼Æ-*/
+    /*-è¤‡è£½backup_grid_OHCANumåˆ°grid_OHCANumèˆ‡grid_Countï¼Œè¨ˆç®—è¨­æ–½æœå‹™ç¯„åœé‡ç–Šçš„ç¶²æ ¼æ•¸-*/
     for (int i = 0; i < grid_x; i++)
         for (int j = 0; j < grid_y; j++)
             grid_Count[i][j] = grid_OHCANum[i][j] = backup_grid_OHCANum[i][j];
-    /*-ÅÜ¼Æ«Å§i-*/   
-    double p_weightSum[limit];         					//¨C­Ó³]¬IÂĞ»\½d³ò¤ºªºOHCA*´_µdÅv­«­È 
-    int p_sum     = 0;                           		//¨C±ø¬V¦âÅéOHCAªºÅv­«Á`¦X 
-    int gridSum   = 0;                           	 	//¥ş³¡³]¬IÂĞ»\ªººô®æÁ`¼Æ 
+    /*-è®Šæ•¸å®£å‘Š-*/   
+    double p_weightSum[limit];         					//æ¯å€‹è¨­æ–½è¦†è“‹ç¯„åœå…§çš„OHCA*å¾©ç”¦æ¬Šé‡å€¼ 
+    int p_sum     = 0;                           		//æ¯æ¢æŸ“è‰²é«”OHCAçš„æ¬Šé‡ç¸½åˆ 
+    int gridSum   = 0;                           	 	//å…¨éƒ¨è¨­æ–½è¦†è“‹çš„ç¶²æ ¼ç¸½æ•¸ 
     int gridLevel = individual[k][limit    ] * 4 + 
 	                individual[k][limit + 1] * 2 + 
-					individual[k][limit + 2] * 1 + 1;   //ºô®æ¼h¼Æ 
+					individual[k][limit + 2] * 1 + 1;   //ç¶²æ ¼å±¤æ•¸ 
 	for (int i = 0; i < limit; i++) 
 		p_weightSum[i] = 0;
-    /*-­pºâ³]¬IÂĞ»\¤ºªºOHCA¯f¨Ò * ¶ZÂ÷Åv­«­È¡B OHCA¯f¨Ò¼Æ¡Bºô®æÂĞ»\¼Æ-*/
+    /*-è¨ˆç®—è¨­æ–½è¦†è“‹å…§çš„OHCAç—…ä¾‹ * è·é›¢æ¬Šé‡å€¼ã€ OHCAç—…ä¾‹æ•¸ã€ç¶²æ ¼è¦†è“‹æ•¸-*/
     for (int z = 0; z <= 8; z++)
         for (int i = 0; i < limit; i++) {
-            int no  = individual[k][i];               	//³]¬I½s¸¹ 
-            int s_x = store_gridNum[no][0];         	//·í«e³]¬I©Ò¦bªºxºô®æ½s¸¹ 
-            int s_y = store_gridNum[no][1];         	//·í«e³]¬I©Ò¦bªºyºô®æ½s¸¹  
+            int no  = individual[k][i];               	//è¨­æ–½ç·¨è™Ÿ 
+            int s_x = store_gridNum[no][0];         	//ç•¶å‰è¨­æ–½æ‰€åœ¨çš„xç¶²æ ¼ç·¨è™Ÿ 
+            int s_y = store_gridNum[no][1];         	//ç•¶å‰è¨­æ–½æ‰€åœ¨çš„yç¶²æ ¼ç·¨è™Ÿ  
             if (z <= gridLevel)
                for (int x = -(gridLevel); x <= gridLevel; x++)
                    for (int y = -(gridLevel); y <= gridLevel; y++)
                        if (s_x + x >= 0 && s_y + y >= 0) {
                            int m = abs(x) + abs(y);
                            if (m == z) {
-                               if(z == 0)                                               //²Ä0¼h¡A´_µdÅv­«­È¬°0.9 
+                               if(z == 0)                                               //ç¬¬0å±¤ï¼Œå¾©ç”¦æ¬Šé‡å€¼ç‚º0.9 
                                    p_weightSum[i] += (double)grid_OHCANum[s_x + x][s_y + y] * (1.0 - (double)((z + 1) * 0.1));
-                               else                                                     //1¨ì8¼h¡A´_µdÅv­«­È¤½¦¡ :1-0.1*ºô®æ¼h¼Æ  
+                               else                                                     //1åˆ°8å±¤ï¼Œå¾©ç”¦æ¬Šé‡å€¼å…¬å¼ :1-0.1*ç¶²æ ¼å±¤æ•¸  
                                    p_weightSum[i] += (double)grid_OHCANum[s_x + x][s_y + y] * (1.0 - (double)(z * 0.1));
-                               store_coverNum[k][i] += grid_OHCANum[s_x + x][s_y + y];  //¨C­Ó³]¬I²[»\ªºOHCA¼Æ 
-                               p_sum                += grid_OHCANum[s_x + x][s_y + y];  //¨C±ø¬V¦âÅéOHCAªºÅv­«Á`¦X
-                               grid_OHCANum[s_x + x][s_y + y] =  0;                     //­pºâ¹Lªººô®æ¤ºOHCA¼Æ§R°£ 
-                               grid_Count[s_x + x][s_y + y]   = -1;                     //¤wÂĞ»\ªººô®æ¬°-1 
+                               store_coverNum[k][i] += grid_OHCANum[s_x + x][s_y + y];  //æ¯å€‹è¨­æ–½æ¶µè“‹çš„OHCAæ•¸ 
+                               p_sum                += grid_OHCANum[s_x + x][s_y + y];  //æ¯æ¢æŸ“è‰²é«”OHCAçš„æ¬Šé‡ç¸½åˆ
+                               grid_OHCANum[s_x + x][s_y + y] =  0;                     //è¨ˆç®—éçš„ç¶²æ ¼å…§OHCAæ•¸åˆªé™¤ 
+                               grid_Count[s_x + x][s_y + y]   = -1;                     //å·²è¦†è“‹çš„ç¶²æ ¼ç‚º-1 
                            }
                        }     
         }    
-    /*-­pºâ©Ò¦³³]¬IÂĞ»\ªººô®æÁ`¼Æ-*/
+    /*-è¨ˆç®—æ‰€æœ‰è¨­æ–½è¦†è“‹çš„ç¶²æ ¼ç¸½æ•¸-*/
     for (int i = 0; i < grid_x; i++)
         for (int j = 0; j < grid_y; j++)
             if (grid_Count[i][j] == -1)
 				gridSum++;
     double avg_coverNum = 0; 
-    /*-¨C±ø¬V¦âÅé¤ºªº³]¬I¤§´_µdÅv­«­ÈÁ`©M-*/      
+    /*-æ¯æ¢æŸ“è‰²é«”å…§çš„è¨­æ–½ä¹‹å¾©ç”¦æ¬Šé‡å€¼ç¸½å’Œ-*/      
     for (int i = 0; i < limit; i++)
         if (store_coverNum[k][i] != 0) {
             avg_coverNum            += ((p_weightSum[i]) / (double)store_coverNum[k][i]); 
             store_coverWeight[k][i]  = ((p_weightSum[i]) / (double)store_coverNum[k][i]);
         } 
-    phenotype[k]     = avg_coverNum; //¨C±ø¬V¦âÅé¤ºªº³]¬I¤§´_µdÅv­«­ÈÁ`©M 
-    OHCANum[k]       = p_sum;        //¨C±ø¬V¦âÅéªº²[»\OHCA¼Æ 
-    cover_gridNum[k] = gridSum;      //¨C±ø¬V¦âÅéªºªA°ÈÂĞ»\ºô®æ¼Æ 
+    phenotype[k]     = avg_coverNum; //æ¯æ¢æŸ“è‰²é«”å…§çš„è¨­æ–½ä¹‹å¾©ç”¦æ¬Šé‡å€¼ç¸½å’Œ 
+    OHCANum[k]       = p_sum;        //æ¯æ¢æŸ“è‰²é«”çš„æ¶µè“‹OHCAæ•¸ 
+    cover_gridNum[k] = gridSum;      //æ¯æ¢æŸ“è‰²é«”çš„æœå‹™è¦†è“‹ç¶²æ ¼æ•¸ 
 }
-/*-µû¦ô²Äx¦¸¼ÒÀÀ¡B²Äy¦¸¥@¥Nªº¬V¦âÅéªºfitness score-*/
+/*-è©•ä¼°ç¬¬xæ¬¡æ¨¡æ“¬ã€ç¬¬yæ¬¡ä¸–ä»£çš„æŸ“è‰²é«”çš„fitness score-*/
 void geneticAlgorithm::evaluation (int x, int& y)
 {
-    /*-Åª¤J«O¯dªº¯f¤H®y¼Ğ-*/
+    /*-è®€å…¥ä¿ç•™çš„ç—…äººåº§æ¨™-*/
     static double OHCA_setData[patient][2];
     static int m_count, store_gridNum[store][2];
     static bool loaded = false;
@@ -348,7 +348,7 @@ void geneticAlgorithm::evaluation (int x, int& y)
     if (!loaded) {
     	ifstream finx1("patient_saveDatax.txt"), finy1("patient_saveDatay.txt");
     	if (!finx1 || !finy1) {
-        	cout << "µLªkÅª¤J¯f¤H®y¼Ğ\n"; 
+        	cout << "ç„¡æ³•è®€å…¥ç—…äººåº§æ¨™\n"; 
         	exit(-1);
     	} 
     	for (int i = 0; i < patient; i++) {
@@ -357,10 +357,10 @@ void geneticAlgorithm::evaluation (int x, int& y)
     	}     
     	finx1.close();
     	finy1.close();
-    	/*-Åª¤J¨C­ÓOHCAªºXºô®æ©MYºô®æ½s¸¹-*/
+    	/*-è®€å…¥æ¯å€‹OHCAçš„Xç¶²æ ¼å’ŒYç¶²æ ¼ç·¨è™Ÿ-*/
     	ifstream finx2("patient_gridNumx.txt"), finy2("patient_gridNumy.txt"); 
     	if (!finx2 || !finy2) {
-        	cout << "µLªkÅª¤JÀÉ®×\n"; 
+        	cout << "ç„¡æ³•è®€å…¥æª”æ¡ˆ\n"; 
 			exit(-1);
     	} 
     	for (int i = 0; i < patient; i++) {
@@ -369,10 +369,10 @@ void geneticAlgorithm::evaluation (int x, int& y)
     	}
     	finx2.close();
     	finy2.close();
-    	/*-Åª¤J¨C­Ó³]¬IªºXºô®æ©MYºô®æ½s¸¹-*/    	
+    	/*-è®€å…¥æ¯å€‹è¨­æ–½çš„Xç¶²æ ¼å’ŒYç¶²æ ¼ç·¨è™Ÿ-*/    	
     	ifstream finx3("store_gridNumx.txt"), finy3("store_gridNumy.txt"); 
     	if (!finx3 || !finy3) { 
-        	cout << "µLªkÅª¤JÀÉ®×\n"; 
+        	cout << "ç„¡æ³•è®€å…¥æª”æ¡ˆ\n"; 
 			exit(-1);
     	} 
     	for (int i = 0; i < store; i++) {
@@ -384,7 +384,7 @@ void geneticAlgorithm::evaluation (int x, int& y)
     	
     	loaded = true;
 	}
-    /*-­pºâ¨C±ø¬V¦âÅéªºfitness value¡Afitness value = ¥ş³¡³]¬IªºOHCA´_µd´Á±æ­È * ªA°Èºô®æÂĞ»\²v * OHCA²[»\²v-*/ 
+    /*-è¨ˆç®—æ¯æ¢æŸ“è‰²é«”çš„fitness valueï¼Œfitness value = å…¨éƒ¨è¨­æ–½çš„OHCAå¾©ç”¦æœŸæœ›å€¼ * æœå‹™ç¶²æ ¼è¦†è“‹ç‡ * OHCAæ¶µè“‹ç‡-*/ 
     for (int gridLevel, g, i = 0; i < population; i++) {
         gridLevel  = individual[i][limit    ] * 4 + 
 		             individual[i][limit + 1] * 2 + 
@@ -395,7 +395,7 @@ void geneticAlgorithm::evaluation (int x, int& y)
 			         ((double)cover_gridNum[i] / (double)(g * limit)) * 
 				     (      (double)OHCANum[i] / (double)patient_saveNum);
     } 
-    /*-¨Ì·Ó¬V¦âÅé¾AÀ³­È¤j¤p±Æ§Ç-*/ 
+    /*-ä¾ç…§æŸ“è‰²é«”é©æ‡‰å€¼å¤§å°æ’åº-*/ 
     for (int i = 0; i < population - 1; i++)
         for (int j = i + 1; j < population; j++)
             if (fitness[i] < fitness[j]) {
@@ -410,7 +410,7 @@ void geneticAlgorithm::evaluation (int x, int& y)
                 }
                 std::swap(cover_gridNum[i], cover_gridNum[j]);
             }
-    /*-ÂZ°Ê¾÷¨î-*/
+    /*-æ“¾å‹•æ©Ÿåˆ¶-*/
     if (y == 0) {
     	m_count       = 0;
     	rate_mutation = 0.01;
@@ -429,30 +429,30 @@ void geneticAlgorithm::evaluation (int x, int& y)
     double fitness_sum = 0;     
     int gridLevel = individual[0][limit    ] * 4 + 
 	                individual[0][limit + 1] * 2 + 
-					individual[0][limit + 2] * 1 + 1; 		/*-¦¹¥@¥N³Ì¨Îªººô®æ¼h¼Æ-*/
+					individual[0][limit + 2] * 1 + 1; 		/*-æ­¤ä¸–ä»£æœ€ä½³çš„ç¶²æ ¼å±¤æ•¸-*/
     int g = (int)((gridLevel * 2 + 1) *
-	              (gridLevel * 2 + 1) / 2) + 1;  			/*-¦¹¥@¥N³Ì¨Îªººô®æ¼h¼Æ©ÒÂĞ»\ªººô®æ¼Æ-*/				      
-    fitness_best[x][y]   = fitness[0];    					/*-¦¹¥@¥N³Ì¨Îªº¬V¦âÅéfitness value-*/        
-    phenotype_best[x][y] = phenotype[0];					/*-¦¹¥@¥N³Ì¨Îªº³]¬IªºOHCA´_µd´Á±æ­È-*/ 
-    OHCANum_best[x][y]   = OHCANum[0];						/*-¦¹¥@¥N³Ì¨ÎªºOHCA²[»\¼Æ-*/ 
-    coverGrid[x][y]      = cover_gridNum[0];				/*-¦¹¥@¥N³Ì¨Îªººô®æÂĞ»\¼Æ-*/
+	              (gridLevel * 2 + 1) / 2) + 1;  			/*-æ­¤ä¸–ä»£æœ€ä½³çš„ç¶²æ ¼å±¤æ•¸æ‰€è¦†è“‹çš„ç¶²æ ¼æ•¸-*/				      
+    fitness_best[x][y]   = fitness[0];    					/*-æ­¤ä¸–ä»£æœ€ä½³çš„æŸ“è‰²é«”fitness value-*/        
+    phenotype_best[x][y] = phenotype[0];					/*-æ­¤ä¸–ä»£æœ€ä½³çš„è¨­æ–½çš„OHCAå¾©ç”¦æœŸæœ›å€¼-*/ 
+    OHCANum_best[x][y]   = OHCANum[0];						/*-æ­¤ä¸–ä»£æœ€ä½³çš„OHCAæ¶µè“‹æ•¸-*/ 
+    coverGrid[x][y]      = cover_gridNum[0];				/*-æ­¤ä¸–ä»£æœ€ä½³çš„ç¶²æ ¼è¦†è“‹æ•¸-*/
 	    
-    cout << "³Ì¨Î¾AÀ³­È:"           << setw(10) << fitness_best[x][y]   << "   " 
-	     << "ªí²{«¬:"               << setw( 8) << phenotype_best[x][y] << "   " 
-		 << "ºô®æ¼Æ:"               << setw( 5) << cover_gridNum[0]     << "   " 
-		 << "¯f¤H¼Æ:"               << setw( 4) << OHCANum_best[x][y]   << endl;
-    cout << "ºô®æ¼h¼Æ:"             << setw( 3) << gridLevel            << "   "
-	     << "¨C¶¡7-ELEVEN cover¼Æ:" << setw( 3) << g                    << "   "
-	     << "°±º¢¼Æ:"               << setw( 3) << m_count              << endl; 
-    /*-¦¹¥@¥N³Ì¨Îªº¬V¦âÅé½s½X-*/ 
+    cout << "æœ€ä½³é©æ‡‰å€¼:"           << setw(10) << fitness_best[x][y]   << "   " 
+	     << "è¡¨ç¾å‹:"               << setw( 8) << phenotype_best[x][y] << "   " 
+		 << "ç¶²æ ¼æ•¸:"               << setw( 5) << cover_gridNum[0]     << "   " 
+		 << "ç—…äººæ•¸:"               << setw( 4) << OHCANum_best[x][y]   << endl;
+    cout << "ç¶²æ ¼å±¤æ•¸:"             << setw( 3) << gridLevel            << "   "
+	     << "æ¯é–“7-ELEVEN coveræ•¸:" << setw( 3) << g                    << "   "
+	     << "åœæ»¯æ•¸:"               << setw( 3) << m_count              << endl; 
+    /*-æ­¤ä¸–ä»£æœ€ä½³çš„æŸ“è‰²é«”ç·¨ç¢¼-*/ 
     for (int i = 0; i < limit + 3; i++)
         individual_best[x][i] = individual[0][i];
-    /*-¦¹¥@¥N³Ì¨Îªº¬V¦âÅé¤º¨C­Ó³]¬I©Ò²[»\ªºOHCA¼Æ»POHCA´_µd´Á±æ­È-*/
+    /*-æ­¤ä¸–ä»£æœ€ä½³çš„æŸ“è‰²é«”å…§æ¯å€‹è¨­æ–½æ‰€æ¶µè“‹çš„OHCAæ•¸èˆ‡OHCAå¾©ç”¦æœŸæœ›å€¼-*/
     for (int i = 0; i < limit; i++) {
         store_coverNum_best[x][i]    = store_coverNum[0][i];
         store_coverWeight_best[x][i] = store_coverWeight[0][i];
     }
-    /*-¦¹¥@¥N³Ì¨Îªº¬V¦âÅé²[»\ªºOHCA®y¼Ğ-*/
+    /*-æ­¤ä¸–ä»£æœ€ä½³çš„æŸ“è‰²é«”æ¶µè“‹çš„OHCAåº§æ¨™-*/
     int select_patient[patient];
     for (int i = 0; i < patient; i++)
         select_patient[i] = -1;
@@ -479,33 +479,33 @@ void geneticAlgorithm::evaluation (int x, int& y)
             select_patientSet[x][i][0] = 0;
             select_patientSet[x][i][1] = 0;
         }
-    /*-¦¹¥@¥Nªº¥­§¡fitness value-*/
+    /*-æ­¤ä¸–ä»£çš„å¹³å‡fitness value-*/
     for(int i = 0; i < population; i++)
         fitness_sum += fitness[i];
-    /*-¨C¦¸¼ÒÀÀ¤¤¨C­Ó¥@¥Nªº¥­§¡fitness value-*/ 
+    /*-æ¯æ¬¡æ¨¡æ“¬ä¸­æ¯å€‹ä¸–ä»£çš„å¹³å‡fitness value-*/ 
     fitness_avg[x][y] = fitness_sum / (double)population;
 } 
-/*-³æÂI¥æ°t-*/
+/*-å–®é»äº¤é…-*/
 void geneticAlgorithm::crossover (int x[], int y[])
 { 
     if FLIP(rate_crossover) {
     	int count = 0;
 		for (int i = 0; i < limit - 1; i++)
         	for (int j = i + 1; j < limit; j++)
-        		//°²¦p¦³¬Û¦P°ò¦]¡A©¹«e²¾    
+        		//å‡å¦‚æœ‰ç›¸åŒåŸºå› ï¼Œå¾€å‰ç§»    
             	if (x[i] == y[j]) {
                 	std::swap(x[count], x[i]);
                 	std::swap(y[count], y[j]);
                 	count++; 
             	} 
-    	/*-¥æ°t¡AÀH¾÷²£¥Í¤ÁÂI¡A¤ÁÂI¤§«áªº°ò¦]¤¬´«-*/  
+    	/*-äº¤é…ï¼Œéš¨æ©Ÿç”¢ç”Ÿåˆ‡é»ï¼Œåˆ‡é»ä¹‹å¾Œçš„åŸºå› äº’æ›-*/  
         for (int i = RANDOM(limit - count) + count; i < limit; i++)
             std::swap(x[i], y[i]);
         for (int i = RANDOM(3) + limit; i < limit + 3; i++)
             std::swap(x[i], y[i]);
     } 
 }       
-/*-¬ğÅÜ-*/
+/*-çªè®Š-*/
 void geneticAlgorithm::mutation (int x[])
 {
     for (int t, i = 0; i < limit; i++) {
@@ -519,33 +519,33 @@ void geneticAlgorithm::mutation (int x[])
             x[i] = t;       
         }       
     } 
-    /*-«á¤T½X¬ğÅÜ-*/   
+    /*-å¾Œä¸‰ç¢¼çªè®Š-*/   
     for (int i = limit; i < limit + 3; i++)
         if FLIP(rate_mutation) 
 			x[i] = (x[i] + 1) % 2;
 }        
-/*-­«»s-*/
+/*-é‡è£½-*/
 void geneticAlgorithm::reproduction (void)
 { 
-    static int survival = (int)((1.0 - rate_selection) * (double)population);	/*-­pºâ¿ï¾Ü¤§¬V¦âÅé¼Æ¥Ø-*/ 
+    static int survival = (int)((1.0 - rate_selection) * (double)population);	/*-è¨ˆç®—é¸æ“‡ä¹‹æŸ“è‰²é«”æ•¸ç›®-*/ 
 
 	for (int j = survival; j < population; j += 2) {
-        /*-¬D¿ï-*/ 
+        /*-æŒ‘é¸-*/ 
 		int parent1 = RANDOM(survival), parent2;
         while (parent1 == (parent2 = RANDOM(survival)))
 			;
         int child1[limit + 3], child2[limit + 3];
-        /*-½Æ»s-*/
+        /*-è¤‡è£½-*/
         for (int k = 0; k < limit + 3; k++) {
             child1[k] = individual[parent1][k];
             child2[k] = individual[parent2][k];
         }
-        /*-¥æ°t-*/
+        /*-äº¤é…-*/
         crossover(child1, child2);
-        /*-¬ğÅÜ-*/
+        /*-çªè®Š-*/
         mutation(child1);
         mutation(child2);
-        /*-©ñ¦^±Ú¸s¤¤¡A¨Ã§R°£¥¼«O¯d¤§¬V¦âÅéªº¬ÛÃö¸ê®Æ-*/
+        /*-æ”¾å›æ—ç¾¤ä¸­ï¼Œä¸¦åˆªé™¤æœªä¿ç•™ä¹‹æŸ“è‰²é«”çš„ç›¸é—œè³‡æ–™-*/
         for (int k = 0; k < limit + 3; k++) {
             individual[j][k]     = child1[k];
             individual[j + 1][k] = child2[k];
@@ -558,48 +558,48 @@ void geneticAlgorithm::reproduction (void)
         OHCANum[j]       = OHCANum[j + 1]       = 0;
         fitness[j]       = fitness[j + 1]       = 0;
         cover_gridNum[j] = cover_gridNum[j + 1] = 0;
-        /*-¨ú±o¬V¦âÅé¤ºªº³]¬I¤§OHCA´_µd´Á±æ­È¡B³]¬I²[»\ªºOHCA¼Æ¡B³]¬IÂĞ»\ªººô®æ¼Æ-*/
+        /*-å–å¾—æŸ“è‰²é«”å…§çš„è¨­æ–½ä¹‹OHCAå¾©ç”¦æœŸæœ›å€¼ã€è¨­æ–½æ¶µè“‹çš„OHCAæ•¸ã€è¨­æ–½è¦†è“‹çš„ç¶²æ ¼æ•¸-*/
         retrieve_phenotype(j);
         retrieve_phenotype(j + 1);
     }
 }        
-/*-°ò¦]¾Ş§@-*/	
+/*-åŸºå› æ“ä½œ-*/	
 void geneticAlgorithm::genetic_operation (int x)
 {       
     for (int i = 0; i < generation; i++) {
-        cout << "²Ä " << setw(5) << i + 1 << " ¥N" << endl; 
+        cout << "ç¬¬ " << setw(5) << i + 1 << " ä»£" << endl; 
         evaluation(x, i);
         reproduction();          
     }        
 }  
-/*-¼gÀÉ-*/      
+/*-å¯«æª”-*/      
 int geneticAlgorithm::writeFile (const char *t1fname, const char *t2fname, const char *t3fname, const char *t4fname, const char *t5fname, 
                                  const char *t6fname, const char *t7fname, const char *t8fname, const char *t9fname, const char *t10fname)
 {
-    cout << "¼gÀÉ" << endl;   
+    cout << "å¯«æª”" << endl;   
     FILE *fptr;
-    fptr = fopen(t1fname, "w"); /*-¼gÀÉ1: ¼g¤J100¦¸¼ÒÀÀ¡A1000­Ó¥@¥N¤¤¨C­Ó³Ì¦nªºªí²{«¬¡AÀÉ®×¦WºÙ: file_1.txt-*/
+    fptr = fopen(t1fname, "w"); /*-å¯«æª”1: å¯«å…¥100æ¬¡æ¨¡æ“¬ï¼Œ1000å€‹ä¸–ä»£ä¸­æ¯å€‹æœ€å¥½çš„è¡¨ç¾å‹ï¼Œæª”æ¡ˆåç¨±: file_1.txt-*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < generation; j++)
         	if (phenotype_best[i][j] != 0)
             	fprintf(fptr, "%f \n", phenotype_best[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t2fname, "w"); /*-¼gÀÉ2: ¼g¤J100¦¸¼ÒÀÀ¡A1000­Ó¥@¥N¥­§¡ªºfitness value¡AÀÉ®×¦WºÙ: file_2.txt-*/
+    fptr = fopen(t2fname, "w"); /*-å¯«æª”2: å¯«å…¥100æ¬¡æ¨¡æ“¬ï¼Œ1000å€‹ä¸–ä»£å¹³å‡çš„fitness valueï¼Œæª”æ¡ˆåç¨±: file_2.txt-*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < generation; j++)
         	if (fitness_avg[i][j] != 0)
             	fprintf(fptr, "%f\n", fitness_avg[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t3fname, "w"); /*-¼gÀÉ3: ¼g¤J100¦¸¼ÒÀÀ¡A1000­Ó¥@¥N¤¤¨C­Ó³Ì¦nªºfitness value¡AÀÉ®×¦WºÙ: file_3.txt-*/
+    fptr = fopen(t3fname, "w"); /*-å¯«æª”3: å¯«å…¥100æ¬¡æ¨¡æ“¬ï¼Œ1000å€‹ä¸–ä»£ä¸­æ¯å€‹æœ€å¥½çš„fitness valueï¼Œæª”æ¡ˆåç¨±: file_3.txt-*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < generation; j++)
         	if (fitness_best[i][j] != 0)
             	fprintf(fptr, "%f\n", fitness_best[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t4fname, "w"); /*-¼gÀÉ4: ¼g¤J¬D¿ï¥Xªº7-11½s¸¹¡AÀÉ®×¦WºÙ: file_4.txt-*/
+    fptr = fopen(t4fname, "w"); /*-å¯«æª”4: å¯«å…¥æŒ‘é¸å‡ºçš„7-11ç·¨è™Ÿï¼Œæª”æ¡ˆåç¨±: file_4.txt-*/
     for (int i = 0; i < simulation; i++)
         for (int j = 0; j < limit; j++)
             for (int k = j + 1; k < limit; k++)
@@ -610,39 +610,39 @@ int geneticAlgorithm::writeFile (const char *t1fname, const char *t2fname, const
             fprintf(fptr, "%d\t", (int)individual_best[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t5fname, "w"); /*-¼gÀÉ5: ¼g¤J¬D¿ï¥Xªº7-11ªº®y¼Ğ¡AÀÉ®×¦WºÙ: file_5.txt-*/
+    fptr = fopen(t5fname, "w"); /*-å¯«æª”5: å¯«å…¥æŒ‘é¸å‡ºçš„7-11çš„åº§æ¨™ï¼Œæª”æ¡ˆåç¨±: file_5.txt-*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < limit; j++)
             fprintf(fptr, "%f\t%f\n", s_data[(int)(individual_best[i][j])][0], s_data[(int)(individual_best[i][j])][1]);
     fclose(fptr);
     
-    fptr = fopen(t6fname, "w"); /*-¼gÀÉ6: ¼g¤J¬D¿ï¥X³Ì¦nªº°t¸m¦aÂI©Ò²[»\ªº½d³ò¡AÀÉ®×¦WºÙ: file_6.txt-*/
+    fptr = fopen(t6fname, "w"); /*-å¯«æª”6: å¯«å…¥æŒ‘é¸å‡ºæœ€å¥½çš„é…ç½®åœ°é»æ‰€æ¶µè“‹çš„ç¯„åœï¼Œæª”æ¡ˆåç¨±: file_6.txt-*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < generation; j++)
         	if (coverGrid[i][j] != 0)
             	fprintf(fptr, "%d\n", coverGrid[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t7fname, "w"); /*-¼gÀÉ7: ¼g¤Jn¦¸¼ÒÀÀ¡A1000­Ó¥@¥N¤¤¨C­Ó³Ì¦nªº¯f¤H¼Æ¡AÀÉ®×¦WºÙ: file_7.txt--*/
+    fptr = fopen(t7fname, "w"); /*-å¯«æª”7: å¯«å…¥næ¬¡æ¨¡æ“¬ï¼Œ1000å€‹ä¸–ä»£ä¸­æ¯å€‹æœ€å¥½çš„ç—…äººæ•¸ï¼Œæª”æ¡ˆåç¨±: file_7.txt--*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < generation; j++)
         	if (OHCANum_best[i][j] != 0)
             	fprintf(fptr, "%d\n", OHCANum_best[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t8fname, "w"); /*-¼gÀÉ8: ¼g¤Jn¦¸¼ÒÀÀ¡A³Ì¨Î¬V¦âÅé¤º³]¬I²[»\ªºOHCA¼Æ¡AÀÉ®×¦WºÙ: file_8.txt--*/
+    fptr = fopen(t8fname, "w"); /*-å¯«æª”8: å¯«å…¥næ¬¡æ¨¡æ“¬ï¼Œæœ€ä½³æŸ“è‰²é«”å…§è¨­æ–½æ¶µè“‹çš„OHCAæ•¸ï¼Œæª”æ¡ˆåç¨±: file_8.txt--*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < limit; j++)
             fprintf(fptr, "%d\t", store_coverNum_best[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t9fname,"w"); /*-¼gÀÉ9: ¼g¤Jn¦¸¼ÒÀÀ¡A³Ì¨Î¬V¦âÅé¤º³]¬I²[»\ªºOHCA´_µd´Á±æ­È¡AÀÉ®×¦WºÙ: file_9.txt--*/
+    fptr = fopen(t9fname,"w"); /*-å¯«æª”9: å¯«å…¥næ¬¡æ¨¡æ“¬ï¼Œæœ€ä½³æŸ“è‰²é«”å…§è¨­æ–½æ¶µè“‹çš„OHCAå¾©ç”¦æœŸæœ›å€¼ï¼Œæª”æ¡ˆåç¨±: file_9.txt--*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < limit; j++)
             fprintf(fptr, "%f\t", store_coverWeight_best[i][j]);
     fclose(fptr);
     
-    fptr = fopen(t10fname, "w"); /*-¼gÀÉ10: ¼g¤Jn¦¸¼ÒÀÀ¡A1000­Ó¥@¥N¤¤¨C­Ó³Ì¦nªº¯f¤H¼Æ®y¼Ğ¡AÀÉ®×¦WºÙ: file_10.txt--*/
+    fptr = fopen(t10fname, "w"); /*-å¯«æª”10: å¯«å…¥næ¬¡æ¨¡æ“¬ï¼Œ1000å€‹ä¸–ä»£ä¸­æ¯å€‹æœ€å¥½çš„ç—…äººæ•¸åº§æ¨™ï¼Œæª”æ¡ˆåç¨±: file_10.txt--*/
     for (int i = 0; i < simulation; i++, fprintf(fptr, "\n"))
         for (int j = 0; j < patient; j++)
             if (select_patientSet[i][j][0] != 0 && select_patientSet[i][j][1] != 0)
@@ -653,13 +653,13 @@ int geneticAlgorithm::writeFile (const char *t1fname, const char *t2fname, const
 int main(void)
 {
     clock_t start = clock();
-    if (read_locationData(  "99_x.txt",   "99_y.txt", p_data, patient, "¯f¤H") &&
-    	read_locationData( "711_x.txt",  "711_y.txt", s_data, store,   "«K§Q°Ó©±") &&
-    	read_locationData("Fire_x.txt", "Fire_y.txt", f_data, fire,    "®ø¨¾§½")) {
+    if (read_locationData(  "99_x.txt",   "99_y.txt", p_data, patient, "ç—…äºº") &&
+    	read_locationData( "711_x.txt",  "711_y.txt", s_data, store,   "ä¾¿åˆ©å•†åº—") &&
+    	read_locationData("Fire_x.txt", "Fire_y.txt", f_data, fire,    "æ¶ˆé˜²å±€")) {
     	data_transfor(    "save_patient.txt",   "store_gridNumx.txt",    "store_gridNumy.txt",   "grid_patientNum.txt", 
 	    	          "patient_gridNumx.txt", "patient_gridNumy.txt", "patient_saveDatax.txt", "patient_saveDatay.txt");    
     	for (int i = 0; i < simulation; i++) {
-        	cout << "²Ä " << setw(2) << i + 1 << " ¦¸¼ÒÀÀ¶}©l!!" << endl;
+        	cout << "ç¬¬ " << setw(2) << i + 1 << " æ¬¡æ¨¡æ“¬é–‹å§‹!!" << endl;
         	geneticAlgorithm g;
         	if (g.initialization()) {
         		g.genetic_operation(i);
@@ -668,7 +668,7 @@ int main(void)
 			}
     	}
 	}
-    cout << "°õ¦æ®É¶¡: " << double(clock() - start) / 1000.0 << "¬í" << endl;
+    cout << "åŸ·è¡Œæ™‚é–“: " << double(clock() - start) / 1000.0 << "ç§’" << endl;
     system("pause");
     return 0;
 }
