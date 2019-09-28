@@ -1,1 +1,7 @@
-# AED2
+# Using spatial weighting to optimize OHCA locations: Balancing expectations, service ranges and survival rates
+
+## Abstract
+According to 2013 statistics from the Taiwan Ministry of Health and Welfare, heart disease is one of the country’s top three causes of death. To decrease loss of life, out-of-hospital cardiac arrest (OHCA) patients require immediate treatment, therefore quick access to automated external defibrillators (AEDs) is considered a major factor contributing to higher OHCA survival rates. The authors used Emergency Medical Service (EMS) reports for OHCA cases in Taipei during 2010 to gather data on patient gender, age, and OHCA location, and used them to test an original genetic algorithm (GA) designed to identify optimum locations for automated external defibrillators (AEDs), taking advantage of the large number of 7-Eleven convenience stores in that city. Our GA identified 100 stores as the best AED deployment locations. Based on an 8-minute maximum limitation for moving from the site of an OHCA incident to a convenience store and back to apply defibrillation, these stores had the highest potential for survival—53% of the 1,625 OHCA cases that occurred in Taipei during 2010. Further, we determined that one-sixth of the financial costs of installing AEDs at those stores covered 80% of the OHCA cases in our analysis—a significant improvement in cost-effectiveness compared to existing EMS/AED management policies.
+
+## Keywords
+AED placement, OHCA response time, AED dispersal configuration, set-cover problem, NP-complete problem, genetic algorithm.
