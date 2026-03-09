@@ -1,1 +1,43 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== C++ Build =====
+*.o
+*.out
+aed_ga
+
+# ===== GA Output (can be regenerated) =====
+file_*.txt
+save_patient.txt
+store_gridNum*.txt
+patient_gridNum*.txt
+grid_patientNum.txt
+patient_saveData*.txt
+
+# ===== macOS =====
 .DS_Store
+._.DS_Store
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== Distribution / Packaging =====
+dist/
+build/
+*.egg-info/
+*.egg
+
+# ===== Virtual Environment =====
+venv/
+.venv/
+env/
