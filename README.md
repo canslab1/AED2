@@ -224,12 +224,6 @@ Taipei bounding box:
 
 44 fire station locations in Taipei. OHCA cases within 300m of a fire station are pre-filtered from the optimization, as they are already within baseline EMS response range.
 
-## References
-
-1. Tsai, Y.-S., Ko, P. C.-I., Huang, C.-Y., and Wen, T.-H. (2012). Optimizing locations for the installation of automated external defibrillators (AEDs) in urban public streets through the use of spatial and temporal weighting schemes. *Applied Geography*, 35(1–2), 394–404. https://doi.org/10.1016/j.apgeog.2012.09.002
-
-2. Huang, C.-Y. and Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. *Computational and Mathematical Methods in Medicine*, 2014, 241435. https://doi.org/10.1155/2014/241435
-
 ## Project Structure
 
 ```
@@ -252,6 +246,12 @@ AED2/
 
 - **Chung-Yuan Huang** (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)
 - **Tzai-Hung Wen** — Department of Geography, National Taiwan University, Taiwan
+
+## References
+
+1. Tsai, Y.-S., Ko, P. C.-I., Huang, C.-Y., and Wen, T.-H. (2012). Optimizing locations for the installation of automated external defibrillators (AEDs) in urban public streets through the use of spatial and temporal weighting schemes. *Applied Geography*, 35(1–2), 394–404. https://doi.org/10.1016/j.apgeog.2012.09.002
+
+2. Huang, C.-Y. and Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. *Computational and Mathematical Methods in Medicine*, 2014, 241435. https://doi.org/10.1155/2014/241435
 
 ## License
 
