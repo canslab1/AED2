@@ -15,6 +15,16 @@ This project implements a **genetic algorithm (GA)** with spatial weighting to s
 
 The GA selects **100 optimal stores** that cover **53% of all OHCA cases** within the 8-minute constraint. One-sixth of the total deployment cost covers 80% of cases — a significant improvement over existing EMS/AED policies.
 
+## Features
+
+- **Genetic algorithm optimization** — Selects 100 optimal AED locations from 677 candidate stores using evolutionary computation.
+- **Spatial weighting** — Distance-decay model accounts for decreasing survival probability with increasing AED distance.
+- **Fire station filtering** — Pre-filters OHCA cases within 300m of existing fire stations to avoid redundant coverage.
+- **Multi-objective fitness** — Balances expected recovery rate, grid coverage, and incident coverage simultaneously.
+- **Adaptive mutation (stirring)** — Automatically increases mutation rate during stagnation to escape local optima.
+- **Robustness analysis** — Consistency validated across 50 independent GA runs (49 core stores appear in all top results).
+- **Jupyter notebooks** — Pre-built visualization notebooks for reproducing all publication figures.
+
 ## Key Results
 
 | Metric | GA (Ours) | TWM Model | SWM Model |
@@ -220,9 +230,27 @@ Taipei bounding box:
 
 2. Huang, C.-Y. and Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. *Computational and Mathematical Methods in Medicine*, 2014, 241435. https://doi.org/10.1155/2014/241435
 
+## Project Structure
+
+```
+AED2/
+├── 基因演算法_不分區模式_20130313.cpp    # C++ genetic algorithm (689 lines)
+├── 99_x.txt, 99_y.txt                 # OHCA patient coordinates (TWD97)
+├── 711_x.txt, 711_y.txt               # 7-Eleven store coordinates (TWD97)
+├── Fire_x.txt, Fire_y.txt             # Fire station coordinates (TWD97)
+├── vip_best.txt                        # Best 100 selected store indices (GA output)
+├── fig_02-03-09-15.ipynb               # Spatial visualization notebook
+├── fig_08-11-14.ipynb                  # Performance metrics notebook
+├── check_similararity_seven.ipynb      # Robustness analysis notebook
+├── newfig_distribution.ipynb           # Kernel density estimation notebook
+├── prep_stats_newFigure_08.ipynb       # Statistical preparation notebook
+├── newFigure_*.png                     # Pre-generated result images
+└── LICENSE                             # MIT License
+```
+
 ## Authors
 
-- **Chung-Yuan Huang** — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)
+- **Chung-Yuan Huang** (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)
 - **Tzai-Hung Wen** — Department of Geography, National Taiwan University, Taiwan
 
 ## License
