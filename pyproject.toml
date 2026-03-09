@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aed2"
-version = "1.0"
+version = "1.0.0"
 description = "Optimal AED Placement Using Spatial Weighting and Genetic Algorithm"
 readme = "README.md"
 license = {text = "MIT"}

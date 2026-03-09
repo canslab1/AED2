@@ -39,6 +39,8 @@ The GA selects **100 optimal stores** that cover **53% of all OHCA cases** withi
 
 - Python 3.10+
 - pandas
+- numpy
+- scipy
 - geopandas (for Taipei administrative boundary shapefiles)
 - matplotlib
 - matplotlib-scalebar
