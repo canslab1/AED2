@@ -25,33 +25,6 @@ The GA selects **100 optimal stores** that cover **53% of all OHCA cases** withi
 - **Robustness analysis** — Consistency validated across 50 independent GA runs (49 core stores appear in all top results).
 - **Jupyter notebooks** — Pre-built visualization notebooks for reproducing all publication figures.
 
-## Key Results
-
-| Metric | GA (Ours) | TWM Model | SWM Model |
-|--------|-----------|-----------|-----------|
-| Expected Recovery Rate | 0.5754 | 0.4672 | 0.4908 |
-| Grid Coverage | 0.9754 | 0.9463 | 0.9106 |
-| Incident Coverage | 0.5470 | 0.4876 | 0.4813 |
-
-Robustness analysis across 50 independent GA runs shows 49 core stores consistently selected in all top results.
-
-## Repository Contents
-
-| File | Description |
-|------|-------------|
-| `基因演算法_不分區模式_20130313.cpp` | C++ genetic algorithm implementation (689 lines) |
-| `99_x.txt`, `99_y.txt` | 1,625 OHCA patient coordinates (Taipei 2010, TWD97) |
-| `711_x.txt`, `711_y.txt` | 677 7-Eleven store coordinates (TWD97) |
-| `Fire_x.txt`, `Fire_y.txt` | 44 fire station coordinates (TWD97) |
-| `vip_best.txt` | Best 100 selected store indices (GA output) |
-| `fig_02-03-09-15.ipynb` | Spatial visualization: maps, store/OHCA/fire station distributions |
-| `fig_08-11-14.ipynb` | Performance metrics: convergence curves, model comparison |
-| `check_similararity_seven.ipynb` | Robustness analysis: consistency across 50 GA runs |
-| `newfig_distribution.ipynb` | Kernel density estimation: OHCA vs. AED spatial patterns |
-| `prep_stats_newFigure_08.ipynb` | Statistical preparation for convergence analysis |
-| `newFigure_*.png` | Pre-generated result visualization images |
-| `LICENSE` | MIT License |
-
 ## Requirements
 
 ### C++ Genetic Algorithm
@@ -98,6 +71,16 @@ jupyter notebook
 ```
 
 Open any `.ipynb` file to reproduce the publication figures.
+
+## Key Results
+
+| Metric | GA (Ours) | TWM Model | SWM Model |
+|--------|-----------|-----------|-----------|
+| Expected Recovery Rate | 0.5754 | 0.4672 | 0.4908 |
+| Grid Coverage | 0.9754 | 0.9463 | 0.9106 |
+| Incident Coverage | 0.5470 | 0.4876 | 0.4813 |
+
+Robustness analysis across 50 independent GA runs shows 49 core stores consistently selected in all top results.
 
 ## Algorithm
 
@@ -175,33 +158,6 @@ Parameters are defined as `#define` macros in the C++ source (recompilation requ
 | `rate_selection` | 0.5 | Selection rate (top fraction preserved) |
 | `rate_crossover` | 0.8 | Crossover probability |
 
-## Output Files
-
-### GA Output (10 files per run)
-
-| File | Content |
-|------|---------|
-| `file_1.txt` | Best phenotype (recovery weight) per generation |
-| `file_2.txt` | Average fitness per generation |
-| `file_3.txt` | Best fitness per generation |
-| `file_4.txt` | Selected store indices (sorted) + grid level bits |
-| `file_5.txt` | Selected store coordinates (x, y) |
-| `file_6.txt` | Grid coverage count per generation |
-| `file_7.txt` | OHCA coverage count per generation |
-| `file_8.txt` | Per-store OHCA coverage count (best chromosome) |
-| `file_9.txt` | Per-store recovery weight (best chromosome) |
-| `file_10.txt` | Covered OHCA patient coordinates |
-
-### Intermediate Files
-
-| File | Content |
-|------|---------|
-| `save_patient.txt` | Filtered OHCA grid positions |
-| `store_gridNumx.txt`, `store_gridNumy.txt` | Store grid mappings |
-| `patient_gridNumx.txt`, `patient_gridNumy.txt` | OHCA grid mappings |
-| `grid_patientNum.txt` | OHCA count per grid cell |
-| `patient_saveDatax.txt`, `patient_saveDatay.txt` | Filtered OHCA coordinates |
-
 ## Data Files
 
 ### Coordinate System
@@ -241,6 +197,33 @@ AED2/
 ├── newFigure_*.png                     # Pre-generated result images
 └── LICENSE                             # MIT License
 ```
+
+## Output Files
+
+### GA Output (10 files per run)
+
+| File | Content |
+|------|---------|
+| `file_1.txt` | Best phenotype (recovery weight) per generation |
+| `file_2.txt` | Average fitness per generation |
+| `file_3.txt` | Best fitness per generation |
+| `file_4.txt` | Selected store indices (sorted) + grid level bits |
+| `file_5.txt` | Selected store coordinates (x, y) |
+| `file_6.txt` | Grid coverage count per generation |
+| `file_7.txt` | OHCA coverage count per generation |
+| `file_8.txt` | Per-store OHCA coverage count (best chromosome) |
+| `file_9.txt` | Per-store recovery weight (best chromosome) |
+| `file_10.txt` | Covered OHCA patient coordinates |
+
+### Intermediate Files
+
+| File | Content |
+|------|---------|
+| `save_patient.txt` | Filtered OHCA grid positions |
+| `store_gridNumx.txt`, `store_gridNumy.txt` | Store grid mappings |
+| `patient_gridNumx.txt`, `patient_gridNumy.txt` | OHCA grid mappings |
+| `grid_patientNum.txt` | OHCA count per grid cell |
+| `patient_saveDatax.txt`, `patient_saveDatay.txt` | Filtered OHCA coordinates |
 
 ## Authors
 
