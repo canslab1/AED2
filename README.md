@@ -1,5 +1,8 @@
 # AED2 — Optimal AED Placement Using Spatial Weighting and Genetic Algorithm
 
+![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+
 A geocomputational genetic algorithm for optimizing the placement of automated external defibrillators (AEDs) across 7-Eleven convenience stores in Taipei, Taiwan, maximizing out-of-hospital cardiac arrest (OHCA) patient survival potential within an 8-minute response window.
 
 ## Overview

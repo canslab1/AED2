@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+title: >-
+  AED2: Optimal AED Placement Using Spatial Weighting and
+  Genetic Algorithm
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Chung-Yuan
+    family-names: Huang
+    affiliation: >-
+      Department of Computer Science and Information
+      Engineering, Chang Gung University, Taiwan
+    email: gscott@mail.cgu.edu.tw
+  - given-names: Tzai-Hung
+    family-names: Wen
+    affiliation: >-
+      Department of Geography, National Taiwan University,
+      Taiwan
+repository-code: 'https://github.com/canslab1/AED2'
+url: 'https://github.com/canslab1/AED2'
+abstract: >-
+  A geocomputational genetic algorithm for optimizing the
+  placement of automated external defibrillators (AEDs)
+  across 7-Eleven convenience stores in Taipei, Taiwan,
+  maximizing out-of-hospital cardiac arrest (OHCA) patient
+  survival potential within an 8-minute response window.
+keywords:
+  - AED
+  - genetic algorithm
+  - spatial optimization
+  - OHCA
+  - GIS
+  - public health
+license: MIT
+version: 1.0.0
+date-released: '2025-01-01'
+preferred-citation:
+  type: article
+  authors:
+    - given-names: Chung-Yuan
+      family-names: Huang
+    - given-names: Tzai-Hung
+      family-names: Wen
+  title: >-
+    Optimal Installation Locations for Automated External
+    Defibrillators in Taipei 7-Eleven Stores: Using GIS and
+    a Genetic Algorithm with a New Stirring Operator
+  journal: Computational and Mathematical Methods in Medicine
+  year: 2014
+  volume: '2014'
+  pages: '241435'
+  doi: 10.1155/2014/241435

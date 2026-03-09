@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aed2"
+version = "1.0"
+description = "Optimal AED Placement Using Spatial Weighting and Genetic Algorithm"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Chung-Yuan Huang", email = "gscott@mail.cgu.edu.tw"},
+    {name = "Tzai-Hung Wen"},
+]
+keywords = ["AED", "genetic-algorithm", "spatial-optimization", "OHCA", "GIS", "public-health"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "pandas>=1.5",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "geopandas>=0.12",
+    "matplotlib>=3.7",
+    "matplotlib-scalebar>=0.8",
+    "seaborn>=0.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/canslab1/AED2"
+Repository = "https://github.com/canslab1/AED2"
+Issues = "https://github.com/canslab1/AED2/issues"
