@@ -28,7 +28,7 @@ The GA selects **100 optimal stores** that cover **53% of all OHCA cases** withi
 - **Robustness analysis** — Consistency validated across 50 independent GA runs (49 core stores appear in all top results).
 - **Jupyter notebooks** — Pre-built visualization notebooks for reproducing all publication figures.
 
-## Requirements
+## Installation
 
 ### C++ Genetic Algorithm
 
@@ -46,7 +46,7 @@ The GA selects **100 optimal stores** that cover **53% of all OHCA cases** withi
 - matplotlib-scalebar
 - seaborn
 
-## Building and Running
+## Usage
 
 ### Compile and Run the Genetic Algorithm
 
@@ -234,6 +234,14 @@ AED2/
 
 - **Chung-Yuan Huang** (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)
 - **Tzai-Hung Wen** — Department of Geography, National Taiwan University, Taiwan
+
+## Citation
+
+If you use this software in your research, please cite:
+
+> Huang, C.-Y. and Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. *Computational and Mathematical Methods in Medicine*, 2014, 241435. https://doi.org/10.1155/2014/241435
+
+See `CITATION.cff` for machine-readable citation metadata.
 
 ## References
 

@@ -43,6 +43,7 @@ Thank you for your interest in contributing to AED2! This document provides guid
 git clone https://github.com/canslab1/AED2.git
 cd AED2
 pip install -r requirements.txt
+jupyter notebook  # Verify notebooks open correctly
 ```
 
 ## Code Style
@@ -51,6 +52,15 @@ pip install -r requirements.txt
 - Use type hints where practical.
 - Keep functions focused and reasonably sized.
 - Document non-obvious algorithms with comments referencing the paper.
+
+## Project Architecture
+
+| Module | Responsibility |
+|--------|---------------|
+| `基因演算法_不分區模式_20130313.cpp` | Core C++ genetic algorithm |
+| `fig_02-03-09-15.ipynb` | Spatial visualization notebook |
+| `fig_08-11-14.ipynb` | Performance metrics notebook |
+| `check_similararity_seven.ipynb` | Robustness analysis notebook |
 
 ## Questions?
 

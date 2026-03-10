@@ -37,6 +37,16 @@ build/
 *.egg-info/
 *.egg
 
+# ===== Windows =====
+Thumbs.db
+
+# ===== Dropbox Conflict Copies =====
+*衝突的複本*
+*(conflicted copy*
+
+# ===== Claude Code =====
+.claude/
+
 # ===== Virtual Environment =====
 venv/
 .venv/
