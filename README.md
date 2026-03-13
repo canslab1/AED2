@@ -2,6 +2,7 @@
 
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
+[![CANS Lab](https://img.shields.io/badge/CANS_Lab-Homepage-orange)](https://canslab1.github.io/)
 
 A geocomputational genetic algorithm for optimizing the placement of automated external defibrillators (AEDs) across 7-Eleven convenience stores in Taipei, Taiwan, maximizing out-of-hospital cardiac arrest (OHCA) patient survival potential within an 8-minute response window.
 
