@@ -1,0 +1,31 @@
+# AED2 — Genetic Algorithm for Optimizing AED Placement
+
+> AED2 uses a genetic algorithm to optimize the placement of Automated External Defibrillators (AEDs) at convenience stores to maximize out-of-hospital cardiac arrest (OHCA) survival rates, demonstrated using Taipei 2010 EMS data.
+
+## Author
+
+- Name: Chung-Yuan Huang (黃崇源)
+- Title: Full Professor, Department of CSIE, Chang Gung University
+- Email: gscott@mail.cgu.edu.tw
+- ORCID: https://orcid.org/0000-0002-8680-6755
+- Google Scholar: https://scholar.google.com/citations?user=0klfzfAAAAAJ&hl=en
+- Homepage: https://canslab1.github.io/
+
+## Software
+
+- Name: AED2
+- Language: C++, Python
+- License: MIT
+- GitHub: https://github.com/canslab1/AED2
+- README: https://canslab1.github.io/AED2/
+
+## Publication
+
+Huang, C.-Y. (2012). Optimal AED placement in a city by a genetic algorithm with a modified fitness function. Applied Geography, 35(1-2), 442-451.
+
+
+## Lab
+
+- CANS Lab (Complex Adaptive Networks and Systems Laboratory)
+- Chang Gung University, Department of CSIE
+- Website: https://canslab1.github.io/
