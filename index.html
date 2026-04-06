@@ -138,7 +138,423 @@
     <main class="content-wrapper">
         <article class="markdown-body" id="content" aria-live="polite">
             <h1>AED2 — Optimal AED Placement Using Spatial Weighting and Genetic Algorithm</h1>
-            <div class="loading">Loading README...</div>
+            <!-- PRERENDER-START -->
+<p><img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-blue">
+<img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green">
+<a href="https://canslab1.github.io/"><img alt="CANS Lab" src="https://img.shields.io/badge/CANS_Lab-Homepage-orange"></a></p>
+<p>A geocomputational genetic algorithm for optimizing the placement of automated external defibrillators (AEDs) across 7-Eleven convenience stores in Taipei, Taiwan, maximizing out-of-hospital cardiac arrest (OHCA) patient survival potential within an 8-minute response window.</p>
+<h2 id="overview">Overview</h2>
+<p>Heart disease is one of Taiwan's top three causes of death. Out-of-hospital cardiac arrest (OHCA) patients require immediate treatment, and quick access to automated external defibrillators (AEDs) is a major factor contributing to higher survival rates.</p>
+<p>This project implements a <strong>genetic algorithm (GA)</strong> with spatial weighting to solve the NP-complete set-cover problem of selecting optimal AED locations. Using 2010 Emergency Medical Service (EMS) reports from Taipei (1,625 OHCA cases), the algorithm evaluates 677 7-Eleven convenience stores as candidate AED deployment sites, considering:</p>
+<ul>
+<li><strong>Spatial coverage</strong>: Distance-decay weighting — closer AEDs yield higher survival probability</li>
+<li><strong>Grid-based analysis</strong>: 45m × 45m grid overlay on Taipei for efficient spatial computation</li>
+<li><strong>Fire station filtering</strong>: OHCA cases within 300m of existing fire stations are pre-filtered (already covered by EMS)</li>
+<li><strong>Multi-objective fitness</strong>: Balances expected recovery rate, grid coverage, and incident coverage</li>
+</ul>
+<p>The GA selects <strong>100 optimal stores</strong> that cover <strong>53% of all OHCA cases</strong> within the 8-minute constraint. One-sixth of the total deployment cost covers 80% of cases — a significant improvement over existing EMS/AED policies.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Genetic algorithm optimization</strong> — Selects 100 optimal AED locations from 677 candidate stores using evolutionary computation.</li>
+<li><strong>Spatial weighting</strong> — Distance-decay model accounts for decreasing survival probability with increasing AED distance.</li>
+<li><strong>Fire station filtering</strong> — Pre-filters OHCA cases within 300m of existing fire stations to avoid redundant coverage.</li>
+<li><strong>Multi-objective fitness</strong> — Balances expected recovery rate, grid coverage, and incident coverage simultaneously.</li>
+<li><strong>Adaptive mutation (stirring)</strong> — Automatically increases mutation rate during stagnation to escape local optima.</li>
+<li><strong>Robustness analysis</strong> — Consistency validated across 50 independent GA runs (49 core stores appear in all top results).</li>
+<li><strong>Jupyter notebooks</strong> — Pre-built visualization notebooks for reproducing all publication figures.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<h3 id="c-genetic-algorithm">C++ Genetic Algorithm</h3>
+<ul>
+<li>C++ compiler with C++11 support (g++, clang++)</li>
+<li>Standard library only — no external dependencies</li>
+</ul>
+<h3 id="jupyter-notebooks-visualization">Jupyter Notebooks (Visualization)</h3>
+<ul>
+<li>Python 3.10+</li>
+<li>pandas</li>
+<li>numpy</li>
+<li>scipy</li>
+<li>geopandas (for Taipei administrative boundary shapefiles)</li>
+<li>matplotlib</li>
+<li>matplotlib-scalebar</li>
+<li>seaborn</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<h3 id="compile-and-run-the-genetic-algorithm">Compile and Run the Genetic Algorithm</h3>
+<pre><code class="language-bash">g++ -O2 -o aed_ga 基因演算法_不分區模式_20130313.cpp
+./aed_ga
+</code></pre>
+<p>The program reads six input files from the current directory:</p>
+<pre><code>99_x.txt, 99_y.txt       → OHCA patient coordinates
+711_x.txt, 711_y.txt     → 7-Eleven store coordinates
+Fire_x.txt, Fire_y.txt   → Fire station coordinates
+</code></pre>
+<p>Execution proceeds through three phases:
+1. <strong>Data preprocessing</strong> — Filter OHCA cases near fire stations, map all locations to 45m grid cells
+2. <strong>GA evolution</strong> — 400 chromosomes × 10,000 generations with selection, crossover, and mutation
+3. <strong>Output</strong> — Write results to <code>file_1.txt</code> through <code>file_10.txt</code></p>
+<h3 id="run-jupyter-notebooks">Run Jupyter Notebooks</h3>
+<pre><code class="language-bash">pip install pandas geopandas matplotlib matplotlib-scalebar seaborn
+jupyter notebook
+</code></pre>
+<p>Open any <code>.ipynb</code> file to reproduce the publication figures.</p>
+<h2 id="key-results">Key Results</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>GA (Ours)</th>
+<th>TWM Model</th>
+<th>SWM Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expected Recovery Rate</td>
+<td>0.5754</td>
+<td>0.4672</td>
+<td>0.4908</td>
+</tr>
+<tr>
+<td>Grid Coverage</td>
+<td>0.9754</td>
+<td>0.9463</td>
+<td>0.9106</td>
+</tr>
+<tr>
+<td>Incident Coverage</td>
+<td>0.5470</td>
+<td>0.4876</td>
+<td>0.4813</td>
+</tr>
+</tbody>
+</table>
+<p>Robustness analysis across 50 independent GA runs shows 49 core stores consistently selected in all top results.</p>
+<h2 id="algorithm">Algorithm</h2>
+<h3 id="chromosome-encoding">Chromosome Encoding</h3>
+<p>Each chromosome encodes a candidate solution: <strong>100 store indices</strong> (selected from 677 stores) plus <strong>3 binary bits</strong> encoding the grid expansion level (1–8 layers).</p>
+<h3 id="fitness-function">Fitness Function</h3>
+<p>The fitness function is a product of three objectives:</p>
+<pre><code>fitness = (phenotype / limit) × (grid_coverage / max_grids) × (OHCA_covered / total_patients)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>phenotype / limit</code></td>
+<td>Average expected recovery weight across selected stores</td>
+</tr>
+<tr>
+<td><code>grid_coverage / max_grids</code></td>
+<td>Proportion of grid cells covered by the selected stores</td>
+</tr>
+<tr>
+<td><code>OHCA_covered / total_patients</code></td>
+<td>Proportion of OHCA incidents within service range</td>
+</tr>
+</tbody>
+</table>
+<h3 id="spatial-weighting-distance-decay">Spatial Weighting (Distance Decay)</h3>
+<p>Each store covers surrounding grid cells with distance-dependent recovery weights:</p>
+<table>
+<thead>
+<tr>
+<th>Grid Layer</th>
+<th>Manhattan Distance</th>
+<th>Recovery Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 (store cell)</td>
+<td>0</td>
+<td>0.9</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0.9</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>0.7</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>8</td>
+<td>8</td>
+<td>0.2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="genetic-operators">Genetic Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Selection</strong></td>
+<td>Elitist: top 50% survive to next generation</td>
+</tr>
+<tr>
+<td><strong>Crossover</strong></td>
+<td>Single-point crossover (rate: 0.8) with duplicate-gene handling</td>
+</tr>
+<tr>
+<td><strong>Mutation</strong></td>
+<td>Random store replacement (base rate: 0.01)</td>
+</tr>
+<tr>
+<td><strong>Stirring</strong></td>
+<td>Adaptive mutation — rate increases to 0.1 after 50+ stagnant generations; early termination after 500 stagnant generations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="workflow">Workflow</h3>
+<pre><code>Load OHCA, 7-Eleven, and fire station coordinates
+  → Filter OHCA cases within 300m of fire stations
+  → Create 45m × 45m grid overlay on Taipei (469 × 614 cells)
+  → Map all locations to grid cells
+  → Initialize population (400 random chromosomes, each selecting 100 stores)
+  → For 10,000 generations:
+      → Evaluate fitness (recovery weight × grid coverage × incident coverage)
+      → Rank chromosomes by fitness
+      → Apply stirring mechanism (adaptive mutation rate on stagnation)
+      → Select top 50%, reproduce via crossover + mutation
+  → Output best solution and convergence statistics
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>Parameters are defined as <code>#define</code> macros in the C++ source (recompilation required):</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grid</code></td>
+<td>45</td>
+<td>Grid cell size (meters)</td>
+</tr>
+<tr>
+<td><code>store</code></td>
+<td>677</td>
+<td>Number of candidate 7-Eleven stores</td>
+</tr>
+<tr>
+<td><code>fire</code></td>
+<td>44</td>
+<td>Number of fire stations</td>
+</tr>
+<tr>
+<td><code>patient</code></td>
+<td>1625</td>
+<td>Number of OHCA cases</td>
+</tr>
+<tr>
+<td><code>s_distance</code></td>
+<td>300</td>
+<td>Fire station service radius (meters)</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>100</td>
+<td>Number of AEDs to deploy</td>
+</tr>
+<tr>
+<td><code>simulation</code></td>
+<td>1</td>
+<td>Number of independent GA runs</td>
+</tr>
+<tr>
+<td><code>generation</code></td>
+<td>10000</td>
+<td>Maximum generations per run</td>
+</tr>
+<tr>
+<td><code>population</code></td>
+<td>400</td>
+<td>Chromosome population size (must be multiple of 4)</td>
+</tr>
+<tr>
+<td><code>rate_selection</code></td>
+<td>0.5</td>
+<td>Selection rate (top fraction preserved)</td>
+</tr>
+<tr>
+<td><code>rate_crossover</code></td>
+<td>0.8</td>
+<td>Crossover probability</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-files">Data Files</h2>
+<h3 id="coordinate-system">Coordinate System</h3>
+<p>All coordinates use <strong>TWD97 (Taiwan Datum 1997)</strong> Transverse Mercator projection (meters).</p>
+<p>Taipei bounding box:
+- X: 295,265.78 – 316,372.88
+- Y: 2,761,738.50 – 2,789,379.00</p>
+<h3 id="ohca-data-99_xtxt-99_ytxt">OHCA Data (<code>99_x.txt</code>, <code>99_y.txt</code>)</h3>
+<p>1,625 out-of-hospital cardiac arrest cases reported in Taipei during 2010, sourced from EMS reports. Each file contains one coordinate value per line.</p>
+<h3 id="7-eleven-stores-711_xtxt-711_ytxt">7-Eleven Stores (<code>711_x.txt</code>, <code>711_y.txt</code>)</h3>
+<p>677 7-Eleven convenience store locations in Taipei. These serve as candidate AED installation sites due to their high density, 24-hour operation, and accessibility.</p>
+<h3 id="fire-stations-fire_xtxt-fire_ytxt">Fire Stations (<code>Fire_x.txt</code>, <code>Fire_y.txt</code>)</h3>
+<p>44 fire station locations in Taipei. OHCA cases within 300m of a fire station are pre-filtered from the optimization, as they are already within baseline EMS response range.</p>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code>AED2/
+├── 基因演算法_不分區模式_20130313.cpp    # C++ genetic algorithm (689 lines)
+├── 99_x.txt, 99_y.txt                 # OHCA patient coordinates (TWD97)
+├── 711_x.txt, 711_y.txt               # 7-Eleven store coordinates (TWD97)
+├── Fire_x.txt, Fire_y.txt             # Fire station coordinates (TWD97)
+├── vip_best.txt                        # Best 100 selected store indices (GA output)
+├── fig_02-03-09-15.ipynb               # Spatial visualization notebook
+├── fig_08-11-14.ipynb                  # Performance metrics notebook
+├── check_similararity_seven.ipynb      # Robustness analysis notebook
+├── newfig_distribution.ipynb           # Kernel density estimation notebook
+├── prep_stats_newFigure_08.ipynb       # Statistical preparation notebook
+├── newFigure_*.png                     # Pre-generated result images
+├── LICENSE                             # MIT License
+├── index.html                          # GitHub Pages landing page
+├── 404.html                            # Custom 404 error page
+├── sitemap.xml                         # XML sitemap for search engines
+├── robots.txt                          # Crawler directives
+├── llms.txt                            # AI-readable project summary
+├── CHANGELOG.md                        # Version history
+├── CITATION.cff                        # Citation metadata
+├── CONTRIBUTING.md                     # Contribution guidelines
+├── pyproject.toml                      # Python project configuration
+├── requirements.txt                    # Python dependencies
+└── .gitignore                          # Git ignore rules
+</code></pre>
+<h2 id="output-files">Output Files</h2>
+<h3 id="ga-output-10-files-per-run">GA Output (10 files per run)</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file_1.txt</code></td>
+<td>Best phenotype (recovery weight) per generation</td>
+</tr>
+<tr>
+<td><code>file_2.txt</code></td>
+<td>Average fitness per generation</td>
+</tr>
+<tr>
+<td><code>file_3.txt</code></td>
+<td>Best fitness per generation</td>
+</tr>
+<tr>
+<td><code>file_4.txt</code></td>
+<td>Selected store indices (sorted) + grid level bits</td>
+</tr>
+<tr>
+<td><code>file_5.txt</code></td>
+<td>Selected store coordinates (x, y)</td>
+</tr>
+<tr>
+<td><code>file_6.txt</code></td>
+<td>Grid coverage count per generation</td>
+</tr>
+<tr>
+<td><code>file_7.txt</code></td>
+<td>OHCA coverage count per generation</td>
+</tr>
+<tr>
+<td><code>file_8.txt</code></td>
+<td>Per-store OHCA coverage count (best chromosome)</td>
+</tr>
+<tr>
+<td><code>file_9.txt</code></td>
+<td>Per-store recovery weight (best chromosome)</td>
+</tr>
+<tr>
+<td><code>file_10.txt</code></td>
+<td>Covered OHCA patient coordinates</td>
+</tr>
+</tbody>
+</table>
+<h3 id="intermediate-files">Intermediate Files</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>save_patient.txt</code></td>
+<td>Filtered OHCA grid positions</td>
+</tr>
+<tr>
+<td><code>store_gridNumx.txt</code>, <code>store_gridNumy.txt</code></td>
+<td>Store grid mappings</td>
+</tr>
+<tr>
+<td><code>patient_gridNumx.txt</code>, <code>patient_gridNumy.txt</code></td>
+<td>OHCA grid mappings</td>
+</tr>
+<tr>
+<td><code>grid_patientNum.txt</code></td>
+<td>OHCA count per grid cell</td>
+</tr>
+<tr>
+<td><code>patient_saveDatax.txt</code>, <code>patient_saveDatay.txt</code></td>
+<td>Filtered OHCA coordinates</td>
+</tr>
+</tbody>
+</table>
+<h2 id="authors">Authors</h2>
+<ul>
+<li><strong>Chung-Yuan Huang</strong> (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)</li>
+<li><strong>Tzai-Hung Wen</strong> — Department of Geography, National Taiwan University, Taiwan</li>
+</ul>
+<h2 id="citation">Citation</h2>
+<p>If you use this software in your research, please cite:</p>
+<blockquote>
+<p>Huang, C.-Y. and Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. <em>Computational and Mathematical Methods in Medicine</em>, 2014, 241435. https://doi.org/10.1155/2014/241435</p>
+</blockquote>
+<p>See <code>CITATION.cff</code> for machine-readable citation metadata.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>
+<p>Tsai, Y.-S., Ko, P. C.-I., Huang, C.-Y., and Wen, T.-H. (2012). Optimizing locations for the installation of automated external defibrillators (AEDs) in urban public streets through the use of spatial and temporal weighting schemes. <em>Applied Geography</em>, 35(1–2), 394–404. https://doi.org/10.1016/j.apgeog.2012.09.002</p>
+</li>
+<li>
+<p>Huang, C.-Y. and Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. <em>Computational and Mathematical Methods in Medicine</em>, 2014, 241435. https://doi.org/10.1155/2014/241435</p>
+</li>
+</ol>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License. See <a href="LICENSE">LICENSE</a> for details.</p>
+<!-- PRERENDER-END -->
         </article>
     </main>
     <footer class="site-footer">
