@@ -201,7 +201,18 @@ AED2/
 ├── newfig_distribution.ipynb           # Kernel density estimation notebook
 ├── prep_stats_newFigure_08.ipynb       # Statistical preparation notebook
 ├── newFigure_*.png                     # Pre-generated result images
-└── LICENSE                             # MIT License
+├── LICENSE                             # MIT License
+├── index.html                          # GitHub Pages landing page
+├── 404.html                            # Custom 404 error page
+├── sitemap.xml                         # XML sitemap for search engines
+├── robots.txt                          # Crawler directives
+├── llms.txt                            # AI-readable project summary
+├── CHANGELOG.md                        # Version history
+├── CITATION.cff                        # Citation metadata
+├── CONTRIBUTING.md                     # Contribution guidelines
+├── pyproject.toml                      # Python project configuration
+├── requirements.txt                    # Python dependencies
+└── .gitignore                          # Git ignore rules
 ```
 
 ## Output Files

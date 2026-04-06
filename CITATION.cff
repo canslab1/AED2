@@ -9,6 +9,7 @@ type: software
 authors:
   - given-names: Chung-Yuan
     family-names: Huang
+    orcid: "https://orcid.org/0000-0002-8680-6755"
     affiliation: >-
       Department of Computer Science and Information
       Engineering, Chang Gung University, Taiwan
@@ -52,3 +53,22 @@ preferred-citation:
   volume: '2014'
   pages: '241435'
   doi: 10.1155/2014/241435
+references:
+  - type: article
+    title: "Optimizing locations for the installation of automated external defibrillators (AEDs) in urban public streets through the use of spatial and temporal weighting schemes"
+    authors:
+      - family-names: Tsai
+        given-names: Yi-Syuan
+      - family-names: Ko
+        given-names: Patrick Chow-In
+      - family-names: Huang
+        given-names: Chung-Yuan
+      - family-names: Wen
+        given-names: Tzai-Hung
+    journal: "Applied Geography"
+    year: 2012
+    volume: 35
+    issue: 1-2
+    start: 394
+    end: 404
+    doi: "10.1016/j.apgeog.2012.09.002"

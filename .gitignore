@@ -10,6 +10,7 @@ __pycache__/
 # ===== C++ Build =====
 *.o
 *.out
+*.exe
 aed_ga
 
 # ===== GA Output (can be regenerated) =====
