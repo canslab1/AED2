@@ -21,8 +21,8 @@
 
 ## Publication
 
-Huang, C.-Y. (2012). Optimal AED placement in a city by a genetic algorithm with a modified fitness function. Applied Geography, 35(1-2), 442-451.
-
+Huang, C.-Y. & Wen, T.-H. (2014). Optimal Installation Locations for Automated External Defibrillators in Taipei 7-Eleven Stores: Using GIS and a Genetic Algorithm with a New Stirring Operator. Computational and Mathematical Methods in Medicine, 2014, 241435.
+DOI: https://doi.org/10.1155/2014/241435
 
 ## Lab
 
